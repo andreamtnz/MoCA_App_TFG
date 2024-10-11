@@ -1,8 +1,8 @@
 const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
-        id: {
+    sequelize.define('user', { // nombre de la tabla: USER
+        id: { // asi se pone casa atributo
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
