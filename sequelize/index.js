@@ -8,7 +8,8 @@ const sequelize = new Sequelize({
 });
 
 const modelDefiners = [
-    require('./models/user.model')
+    require('./models/user.model'),
+    require('./models/patient.model'),
     // El resto de modelos
 ];
 

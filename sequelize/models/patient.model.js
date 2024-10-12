@@ -26,5 +26,13 @@ module.exports = (sequelize) => {
             values: ['male', 'female'], // Possible values for the enum
             allowNull: false, // Make this field mandatory if needed
         },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'users', // Assuming there's a users table
+                key: 'id'
+            }
+        },
     });
 }
