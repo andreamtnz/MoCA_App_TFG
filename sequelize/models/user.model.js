@@ -20,6 +20,14 @@ module.exports = (sequelize) => {
             allowNull: false,
             type: DataTypes.STRING,
             unique: false
-        }
+        },
+        createdAt:{
+            allowNull: false,
+            type: DATETIME,
+        },
+        updatedAt:{
+            allowNull: false,
+            type: DATETIME,
+        },
     });
 }
