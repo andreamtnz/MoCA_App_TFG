@@ -23,11 +23,11 @@ module.exports = (sequelize) => {
         },
         createdAt:{
             allowNull: false,
-            type: DATETIME,
+            type: DataTypes.DATE,
         },
         updatedAt:{
             allowNull: false,
-            type: DATETIME,
+            type: DataTypes.DATE,
         },
     });
 }
