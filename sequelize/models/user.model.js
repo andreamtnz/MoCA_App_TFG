@@ -29,5 +29,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             type: DataTypes.DATE,
         },
+        role: {
+            type: DataTypes.ENUM,
+            values: ['Administrator', 'Doctor','patient'], // Possible values for the enum
+            allowNull: false, 
+        },
     });
 }
