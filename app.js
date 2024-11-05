@@ -11,7 +11,7 @@ const restrictedRouter = require('./routes/restricted');
 const registerRouter = require('./routes/register');
 
 const app = express();
-app.locals.title = "Demo Login";
+app.locals.title = "MoCA Web";
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

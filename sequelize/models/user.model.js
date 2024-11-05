@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', { // nombre de la tabla: USER
+    sequelize.define('user', { // nombre de la tabla: USERS
         id: { // asi se pone casa atributo
             allowNull: false,
             autoIncrement: true,
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
         },
         role: {
             type: DataTypes.ENUM,
-            values: ['Administrator', 'Doctor','patient'], // Possible values for the enum
+            values: ['Administrator', 'Doctor','Patient'], // Possible values for the enum
             allowNull: true, 
         },
     });

@@ -8,14 +8,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', async (req, res) => {
+  const name = req.body.name;
+  const lastname = req.body.lastname;
+  const dob = req.body.dob;
+  const gender = req.body.gender;
+  const phone = req.body.phone;
   const username = req.body.user;
   const pass = req.body.pass;
   const user = await sequelize.models.user.findOne({where: {username}});
   if(!user){
     const password = await bcrypt.hash(pass, 10);
     const newUser = await sequelize.models.user.create({username, password});
-    req.session.user = {username: user};
+    req.session.user = { username: newUser.username, id: newUser.id };
     req.session.message = "Registro correcto!"
+    
+    const newPatient = await sequelize.models.patient.create({
+      name: name, 
+      lastname: lastname,
+      dob: dob,
+      phone: phone,
+      gender: gender,
+      userId : newUser.id,
+      doctorId: 1});
     res.redirect("/restricted");
   } else {
     req.session.error = "Ya existe ese username";

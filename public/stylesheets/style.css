@@ -1,8 +1,19 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0px;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+.navbar-nav .nav-item {
+  margin: 0 20px; /* Ajusta el margen a la derecha e izquierda */
+  font-size: 20px;
+  padding: 0px 20px;
+}
+
 
 a {
   color: #00B7FF;
 }
+.custom-navbar {
+  background-color: rgba(116, 181, 209, 0.466); /* Color de fondo con opacidad */
+  }
+

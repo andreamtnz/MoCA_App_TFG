@@ -8,11 +8,15 @@ module.exports = (sequelize) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
+        zip_file: {
+            allowNull: false,
+            type: DataTypes.BLOB
+        },
         evaluation: {
             allowNull:  true,
             type: DataTypes.STRING,
         },
-        testType:{
+        testType: {
             allowNull: false,
             type: DataTypes.ENUM,
             values: ['MoCA', 'MiniMental'],

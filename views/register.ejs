@@ -1,6 +1,14 @@
 <%- include("header", {}) %>
 <h1>Register</h1>
 <form method="post" action="/register">
+  <label>Name: </label> <input type="text" name="name"><br>
+  <label>Lastname: </label> <input type="text" name="lastname"><br>
+  <label>Date of birth: </label> <br>
+  <input type="date" name="dob" required><br>
+  <label>Gender: </label> <br>
+  <label><input type="checkbox" name="gender" value="Male"> Male</label>
+  <label><input type="checkbox" name="gender" value="Female"> Female</label><br>
+  <label>Phone number: </label> <input type="text" name="phone"><br>
   <label>Username: </label> <input type="text" name="user"><br>
   <label>Password: </label> <input type="password" name="pass"><br>
   <button type="submit">Submit</button>

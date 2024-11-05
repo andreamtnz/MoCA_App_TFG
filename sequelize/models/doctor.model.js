@@ -8,6 +8,14 @@ module.exports = (sequelize) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
+        name: {
+            allowNull: false,
+            type: DataTypes.TEXT,
+        },
+        lastname: {
+            allowNull: false,
+            type: DataTypes.TEXT,
+        },
         specialty: {
             allowNull: false,
             type: DataTypes.ENUM,

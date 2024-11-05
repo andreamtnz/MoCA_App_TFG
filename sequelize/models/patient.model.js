@@ -12,7 +12,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             type: DataTypes.STRING,
         },
-        
+        lastname: {
+            allowNull: false,
+            type: DataTypes.TEXT,
+        },        
         dob:{
             allowNull: false,
             type: DataTypes.DATE,
@@ -38,7 +41,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'doctors', // Assuming there's a users table
+                model: 'doctors', // Assuming there's a doctors table
                 key: 'id'
             }
         },
