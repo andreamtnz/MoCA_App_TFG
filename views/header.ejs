@@ -15,9 +15,12 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="/">Home</span></a>
+            <a class="nav-link" href="/">Home</span></a> <!-- href="/" apunta a la raiz o pagina principal-->
           </li>
-          <% if (user) { %>
+          <li class="nav-item active">
+            <a class="nav-link" href="/our-team">Our team</span></a>
+          </li>
+          <% if (user) { %> 
             <li class="nav-item">
               <a class="nav-link" href="/restricted">Restricted</a>
             </li>
@@ -30,9 +33,6 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/register">Our team</a>
             </li>
           <% } %>
         </ul>

@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const restrictedRouter = require('./routes/restricted');
 const registerRouter = require('./routes/register');
+const ourTeamRouter = require('./routes/our-team');
 
 const app = express();
 app.locals.title = "MoCA Web";
@@ -46,6 +47,7 @@ app.use('/logout', (req,res) =>{
   req.session.destroy();
   res.redirect("/");
 });
+app.use('/our-team', ourTeamRouter);
 
 function restricted(req, res, next){
   if(req.session.user){
