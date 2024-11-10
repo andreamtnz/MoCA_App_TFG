@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
   const user = await sequelize.models.user.findOne({where: {username}});
   if(!user){
     const password = await bcrypt.hash(pass, 10);
-    const newUser = await sequelize.models.user.create({username, password});
+        const newUser = await sequelize.models.user.create({username, password, role: 'Patient'}); // añadimos el role porque los que se registran son directamente pacientes
     req.session.user = { username: newUser.username, id: newUser.id };
     req.session.message = "Registro correcto!"
     
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
       phone: phone,
       gender: gender,
       userId : newUser.id,
-      doctorId: 1});
+      doctorId: 1}); // de primeras se le asignará al doctor base
     res.redirect("/restricted");
   } else {
     req.session.error = "Ya existe ese username";
