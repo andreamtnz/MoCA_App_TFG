@@ -20,13 +20,17 @@ for (const modelDefiner of modelDefiners){
     modelDefiner(sequelize);
 }
 
-const { user, doctor } = sequelize.models;
+const { user, doctor, patient } = sequelize.models;
 
 user.hasMany(doctor, { foreignKey: 'userId' });
 doctor.belongsTo(user, { foreignKey: 'userId' });
 
+doctor.hasMany(patient, { foreignKey: 'doctorId'});
+patient.belongsTo(doctor, { foreignKey: 'doctorId' });
+
+
 async function reset(){
-    await sequelize.sync({force: true}).then(() =>{ // false para que no se reinice la DB
+    await sequelize.sync({force: false}).then(() =>{ // false para que no se reinice la DB
         console.log('Database synced successfully');
     }).catch(err => {
         console.error('Error syncing database:', err);
@@ -35,6 +39,7 @@ async function reset(){
     const users = [
         {username: 'doctor', password: 'doctor', role: 'Doctor'},
         {username: 'admin', password: 'admin', role: 'Administrator'},
+        
         
     ];
     

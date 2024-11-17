@@ -10,6 +10,10 @@ const loginRouter = require('./routes/login');
 const restrictedRouter = require('./routes/restricted');
 const registerRouter = require('./routes/register');
 const ourTeamRouter = require('./routes/our-team');
+const viewDoctorsRouter = require('./routes/viewdoctors');
+const adminviewdoctorRouter = require('./routes/adminviewdoctor');
+const createDoctorRouter = require('./routes/create-doctor');
+
 
 const app = express();
 app.locals.title = "MoCA Web";
@@ -48,6 +52,9 @@ app.use('/logout', (req,res) =>{
   res.redirect("/");
 });
 app.use('/our-team', ourTeamRouter);
+app.use('/viewdoctors', viewDoctorsRouter);
+app.use('/adminviewdoctor', adminviewdoctorRouter);
+app.use('/create-doctor', createDoctorRouter);
 
 function restricted(req, res, next){
   if(req.session.user){

@@ -86,6 +86,52 @@ input {
   margin-right: 5px; /* Espacio entre la casilla y el texto */
 }
 
+/* Estilos base para todas las tarjetas */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: none; /* Por defecto, sin movimiento */
+}
+
+/* Solo las tarjetas con la clase 'cardMovement' tendrán el efecto de movimiento */
+.cardMovement {
+  transition: transform 0.2s ease-in-out;
+}
+
+.cardMovement:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Centrar el botón horizontalmente */
+  align-items: center;     /* Centrar el botón verticalmente (si es necesario) */
+  margin-bottom: 20px;     /* Espacio debajo del botón */
+}
+
+
+.custom-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 75px;
+  background-color: rgba(52, 152, 219, 0.829);
+  border-color: rgb(52, 152, 219,  0.829);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: rgb(41, 128, 185);
+}
+
+
+
 
 
 

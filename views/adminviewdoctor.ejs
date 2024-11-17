@@ -1,0 +1,48 @@
+<%- include("header") %>
+
+<div class="container mt-5">
+    <!-- Card para mostrar la información del doctor -->
+    <div class="card mb-5 p-4 shadow-sm" style="border-radius: 15px;">
+        <div class="row align-items-center g-0">
+            <!-- Columna para la imagen -->
+            <div class="col-md-3 text-center">
+                <% if (doctor.image) { %>
+                    <img src="/<%= doctor.image %>" alt="<%= doctor.name %>" class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover; margin-right: 15px;">
+                <% } else { %>
+                    <img src="/uploads/default.png" class="img-fluid rounded-start" alt="Default image">
+                <% } %>
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h3 class="card-title mb-3"><%= doctor.name %> <%= doctor.lastname %></h3>
+                    <p class="card-text"><strong>Specialty:</strong> <%= doctor.specialty %></p>
+                    <p class="card-text"><strong>License Number:</strong> <%= doctor.license_number %></p>
+                    <p class="card-text"><strong>Description:</strong> <%= doctor.description %></p>
+                    <p class="card-text"><strong>Username:</strong> <%= userDoctor.username %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de pacientes asociados al doctor -->
+    <div class="card mb-4">
+        <div class="card-header text-white" style="background-color: rgba(96, 161, 188, 0.868)">
+            <h3>Associated patients</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+            <% if (patients.length > 0) { %>
+                <% patients.forEach(patient => { %>
+                    <li class="list-group-item">
+                        <h5><%= patient.name %> <%= patient.lastname %></h5>
+                        <p><strong>Date of birth:</strong> <%= new Date(patient.dob).toLocaleDateString('en-GB') %></p>
+                        
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li class="list-group-item">No hay pacientes asociados.</li>
+            <% } %>
+        </ul>
+    </div>
+</div>
+
+<%- include("footer") %>

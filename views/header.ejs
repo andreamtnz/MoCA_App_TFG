@@ -17,7 +17,7 @@
             <% if (user) { %> <!-- si hay un user logged in-->
               <% if (user.role == 'Administrator') { %> <!-- si hay un administrador-->
                   <li class="nav-item">
-                    <a class="nav-link" href="/restricted">View doctors</a>
+                    <a class="nav-link" href="/viewdoctors">View doctors</a>
                   </li>
               <% } %>
               <% if (user.role == 'Doctor') { %> <!-- si hay un doctor-->
