@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   const gender = req.body.gender;
   const phone = req.body.phone;
   const username = req.body.user;
-  const pass = req.body.pass;
+  const pass = req.body.password;
   const user = await sequelize.models.user.findOne({where: {username}});
   if(!user){
     const password = await bcrypt.hash(pass, 10);

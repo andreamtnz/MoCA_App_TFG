@@ -14,20 +14,36 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home</span></a> <!-- href="/" apunta a la raiz o pagina principal-->
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/our-team">Our team</span></a>
-          </li>
-          <% if (user) { %> 
-            <li class="nav-item">
-              <a class="nav-link" href="/restricted">Restricted</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
+            <% if (user) { %> <!-- si hay un user logged in-->
+              <% if (user.role == 'Administrator') { %> <!-- si hay un administrador-->
+                  <li class="nav-item">
+                    <a class="nav-link" href="/restricted">View doctors</a>
+                  </li>
+              <% } %>
+              <% if (user.role == 'Doctor') { %> <!-- si hay un doctor-->
+                  <li class="nav-item">
+                    <a class="nav-link" href="/restricted">View my patients</a>
+                  </li>
+              <% } %>
+                <% if (user.role == 'Patient') { %> <!-- si hay un paciente-->
+                  <li class="nav-item">
+                    <a class="nav-link" href="/restricted">Tests</a>
+                  </li>
+              <% } %>
+              <li class="nav-item">
+                <a class="nav-link" href="/restricted">My account</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+
           <% } else { %>
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home</span></a> <!-- href="/" apunta a la raiz o pagina principal-->
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/our-team">Our team</span></a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>
             </li>

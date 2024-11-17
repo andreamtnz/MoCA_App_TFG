@@ -13,7 +13,11 @@ router.post('/', async (req, res) => {
   if(user){
     bcrypt.compare(req.body.pass, user.password, function(err, result){
       if (result){//Login y pass correcto
-        req.session.user = {username: user.username};
+        req.session.user = {
+          id: user.id,
+          username: user.username,
+          role: user.role
+        };
         req.session.message = "¡Login correcto!"
         res.redirect("/restricted");
       } else {

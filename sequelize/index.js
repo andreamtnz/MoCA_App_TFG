@@ -26,15 +26,16 @@ user.hasMany(doctor, { foreignKey: 'userId' });
 doctor.belongsTo(user, { foreignKey: 'userId' });
 
 async function reset(){
-    await sequelize.sync({force: false}).then(() =>{ // false para que no se reinice la DB
+    await sequelize.sync({force: true}).then(() =>{ // false para que no se reinice la DB
         console.log('Database synced successfully');
     }).catch(err => {
         console.error('Error syncing database:', err);
     }); 
     const count = await sequelize.models.user.count();
     const users = [
-        {username: 'user'},
-        {username: 'admin'},
+        {username: 'doctor', password: 'doctor', role: 'Doctor'},
+        {username: 'admin', password: 'admin', role: 'Administrator'},
+        
     ];
     
     if (count == 0){
@@ -49,7 +50,9 @@ async function reset(){
 
     const countDoctors = await sequelize.models.doctor.count();
     const doctors = [
-        {name: 'tbd', lastname: 'tbd', specialty: 'neurology', license_number: '00000000', userId: '1'},
+        {name: 'tbd', lastname: 'tbd', specialty: 'neurology', license_number: '00000000', description: 'I am a ver good doctor', image: 'uploads/doctor1.png', userId: '1'},
+        {name: 'tbd2', lastname: 'tbd2', specialty: 'neurology', license_number: '00000000', description: 'I am a ver good doctor', image: 'uploads/default.png', userId: '2'},
+
     ];
     
     if (countDoctors == 0){

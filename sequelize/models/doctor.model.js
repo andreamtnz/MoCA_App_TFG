@@ -26,6 +26,14 @@ module.exports = (sequelize) => {
             allowNull: false,
             type: DataTypes.INTEGER,
         },
+        description: {
+            allowNull: true,
+            type: DataTypes.TEXT,
+        },
+        image: {
+            allowNull: true,
+            type: DataTypes.TEXT, //ruta de la imagen
+        },
 
         userId: {
             type: DataTypes.INTEGER,

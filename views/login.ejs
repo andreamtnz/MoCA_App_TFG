@@ -1,8 +1,16 @@
 <%- include("header", {}) %>
-<h1 style = "padding-left: 20px">Login</h1>
-<form method="post" action="/login">
-  <label>Username: </label> <input type="text" name="user"><br>
-  <label>Password: </label> <input type="password" name="pass"><br>
-  <button type="submit">Submit</button>
-</form>
+
+<h1 style = "text-align: center; margin-top: 20px">Login</h1>
+
+<div class = "form-container">
+    <form method="post" action="/login">
+    <label>Username: </label> 
+    <input type="text" name="user"><br>
+
+    <label>Password: </label> 
+    <input type="password" name="pass"><br>
+
+    <button type="submit" class = "submit-button">Submit</button>
+  </form>
+</div>
 <%- include("footer", {}) %>
