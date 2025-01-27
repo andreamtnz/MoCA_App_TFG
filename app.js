@@ -7,12 +7,13 @@ const session = require('express-session');
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
-const restrictedRouter = require('./routes/restricted');
+const myprofileRouter = require('./routes/myprofile');
 const registerRouter = require('./routes/register');
 const ourTeamRouter = require('./routes/our-team');
 const viewDoctorsRouter = require('./routes/viewdoctors');
 const adminviewdoctorRouter = require('./routes/adminviewdoctor');
 const createDoctorRouter = require('./routes/create-doctor');
+const patientViewTestsRouter = require('./routes/patient-viewtests');
 
 
 const app = express();
@@ -46,15 +47,16 @@ app.use((req,res,next) => {
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use('/restricted', restricted, restrictedRouter);
+app.use('/myprofile', restricted, myprofileRouter);
 app.use('/logout', (req,res) =>{
-  req.session.destroy();
+  req.session.destroy(); //se elimina el objeto session
   res.redirect("/");
 });
 app.use('/our-team', ourTeamRouter);
 app.use('/viewdoctors', viewDoctorsRouter);
 app.use('/adminviewdoctor', adminviewdoctorRouter);
 app.use('/create-doctor', createDoctorRouter);
+app.use('/patient-viewtests', patientViewTestsRouter);
 
 function restricted(req, res, next){
   if(req.session.user){

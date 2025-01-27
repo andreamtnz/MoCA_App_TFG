@@ -2,15 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const sequelize = require('../sequelize');
-//const Doctor = require('../sequelize/models/doctor.model'); // Importa el modelo Doctor
 
-
-
-
-// Ruta para mostrar la página "Our Team"
 router.get('/', async (req, res) => {
-    //const user = req.session.user;
-    //res.render('our-team', { user: user}); // Renderiza la vista EJS "our-team"
+    
     
     try{
         // Busca todos los doctores en la base de datos

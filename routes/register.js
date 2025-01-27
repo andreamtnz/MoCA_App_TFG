@@ -18,23 +18,37 @@ router.post('/', async (req, res) => {
     const username = req.body.user;
     const pass = req.body.password;
     const user = await sequelize.models.user.findOne({where: {username}});
-    if(!user){
+    if(!user){ // username not in use
       const password = await bcrypt.hash(pass, 10);
       const newUser = await sequelize.models.user.create({username, password, role: 'Patient'}); // añadimos el role porque los que se registran son directamente pacientes
       req.session.user = { username: newUser.username, id: newUser.id };
       req.session.message = "Account created successfully!"
       
-      const newPatient = await sequelize.models.patient.create({
-        name: name, 
-        lastname: lastname,
-        dob: dob,
-        phone: phone,
-        gender: gender,
-        userId : newUser.id,
-        doctorId: 1}); // de primeras se le asignará al doctor base
-      res.redirect("/restricted");
-    } else {
-      req.session.error = "Ya existe ese username";
+      const doctors = await sequelize.models.doctor.findAll();
+      
+      if (doctors.length > 0) { //doctors available in db
+        const randomIndex = Math.floor(Math.random() * doctors.length); // doctor aleatorio
+        const doctorAssigned = doctors[randomIndex]; 
+        console.log('Doctor assigned:', doctorAssigned);
+        const newPatient = await sequelize.models.patient.create({
+          name: name, 
+          lastname: lastname,
+          dob: dob,
+          phone: phone,
+          gender: gender,
+          userId : newUser.id,
+          doctorId: doctorAssigned.id,
+        }); 
+        res.redirect("/login");
+
+      } else { //no doctors
+        console.log('No doctors found in the database.');
+        req.session.error = "No available doctors. Please try again later...";
+        res.redirect("/register");
+      }
+      
+    } else { //usetname in use
+      req.session.error = "Username already in use.";
       res.redirect("/register");
     }
 });

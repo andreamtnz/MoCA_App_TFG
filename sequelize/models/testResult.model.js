@@ -8,6 +8,10 @@ module.exports = (sequelize) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
+        date: {
+            allowNull: false,
+            type: DataTypes.DATE,
+        },
         zip_file: {
             allowNull: false,
             type: DataTypes.BLOB

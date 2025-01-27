@@ -22,16 +22,16 @@
               <% } %>
               <% if (user.role == 'Doctor') { %> <!-- si hay un doctor-->
                   <li class="nav-item">
-                    <a class="nav-link" href="/restricted">View my patients</a>
+                    <a class="nav-link" href="/myprofile">View my patients</a>
                   </li>
               <% } %>
                 <% if (user.role == 'Patient') { %> <!-- si hay un paciente-->
                   <li class="nav-item">
-                    <a class="nav-link" href="/restricted">Tests</a>
+                    <a class="nav-link" href="/patient-viewtests">Tests</a>
                   </li>
               <% } %>
               <li class="nav-item">
-                <a class="nav-link" href="/restricted">My account</a>
+                <a class="nav-link" href="/myprofile">My profile</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>

@@ -18,8 +18,16 @@ router.post('/', async (req, res) => {
           username: user.username,
           role: user.role
         };
-        req.session.message = "¡Login correcto!"
-        res.redirect("/restricted");
+        req.session.message = "Successful log in!"
+        if(user.role == 'Patient'){
+          res.redirect(`/patient-viewtests/${user.id}`);
+        }
+        if(user.role == 'Doctor'){
+          res.redirect("/myprofile");
+        }
+        if(user.role == 'Administrator'){
+          res.redirect("/viewdoctors");
+        };
       } else {
         req.session.error = "Incorrect username or password.";
         res.redirect("/login");
@@ -27,7 +35,7 @@ router.post('/', async (req, res) => {
     });
   } else {
     req.session.error = "Incorrect username or password.";
-    res.redirect("login");
+    res.redirect("/login");
   }
 });
 
