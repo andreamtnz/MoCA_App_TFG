@@ -26,7 +26,10 @@ a {
   justify-content: flex-start; /* Comienza cerca de la parte superior */
   align-items: center;
   height: 70vh; /* Ajusta la altura para centrar mejor */
-  margin-top: 5vh; /* Añade un margen superior para que no esté pegado arriba */
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 900px;
+  /*margin-top: 5vh; /* Añade un margen superior para que no esté pegado arriba */
 }
 
 /* Estilos para el formulario */
@@ -37,6 +40,36 @@ form {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 400px;
 }
+
+.update-profile form {
+  width: 800px; /* Ancho específico para esta vista */
+  max-width: 90%; /* Responsivo para pantallas pequeñas */
+}
+
+.form-columns {
+  display: flex;
+  justify-content: space-between; /* Coloca una columna a la izquierda y otra a la derecha */
+  gap: 20px; /* Espacio entre columnas */
+  width: 100%;
+  padding: 10px;
+}
+
+.column {
+  flex: 1; /* Las columnas tendrán el mismo tamaño */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.column h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center; /* Centrar títulos */
+  color: #007bff; /* Color azul */
+}
+
 
 label {
   display: block;
@@ -52,6 +85,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 
 .submit-button {
   width: 100%;
@@ -130,6 +164,12 @@ input {
   background-color: rgb(41, 128, 185);
 }
 
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .form-columns {
+    flex-direction: column; /* Las columnas se apilan verticalmente */
+    gap: 30px;
+  }
 
 
 

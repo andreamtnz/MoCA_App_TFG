@@ -1,0 +1,94 @@
+<%- include("header", {}) %>
+
+<h1 style="text-align: center; margin-top: 20px;">Update profile</h1>
+
+<% if (user.role == 'Patient'){%>
+    <div class = "form-container update-profile">
+        <form method="post" action="/update-profile">
+            <div class = "form-columns">
+                <div class = "column">
+                    <h2>Personal Information</h2>
+
+                    <label>Name: <%= patient.name %></label>
+                    <input type="text" name="name"><br>
+                    
+                    <label>Lastname:  <%= patient.lastname %></label>
+                    <input type="text" name="lastname"><br>
+                    
+                    <label>Date of birth:  <%= formatDate(patient.dob) %></label> <br>
+                    <input type="date" name="dob"><br>
+                    
+                    <label>Gender: <%= patient.gender %></label> <br>
+                    <div class = "gender-options">
+                        <label>
+                            <input type="radio" name="gender" value="Male"> Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Female"> Female
+                        </label><br>
+                    </div>
+
+                    <label>Phone number: <%= patient.phone %></label> 
+                    <input type="text" name="phone"><br>                    
+                </div>
+
+                <div class = "column">
+                    <h2>Account Information</h2>
+                    <label>Username: <%= user.username %></label> 
+                    <input type="text" name="user"><br>
+                    
+                    <label>Password: </label> 
+                    <input type="password" name="password"><br>
+
+                    <label>Confirm new password: </label> 
+                    <input type="password" name="confirmpassword"><br>
+                </div>
+                                
+            </div>  
+            <button type="submit" class = "submit-button">Save</button>
+        </form>
+    </div>
+<% } %>
+
+<% if (user.role == 'Doctor'){%>
+    <div class = "form-container update-profile">
+        <form method="post" action="/update-profile">
+            <div class = "form-columns">
+                <div class = "column">
+                    <h2>Personal Information</h2>
+                    <label>Name: <%= doctor.name %></label>
+                    <input type="text" name="name" ><br>
+                    
+                    <label>Lastname:  <%= doctor.lastname %></label>
+                    <input type="text" name="lastname" ><br>
+                    
+                    <label>License number:  <%= doctor.license_number %></label> <br>
+                    <input type="text" name="license_number" ><br>
+                    
+                    <label>Specialty: <%= doctor.specialty%></label> <br>
+                    <input type="text" name="specialty" ><br>
+
+                </div>
+                
+                <div class = "column">
+                    <h2>Account Information</h2>
+                    <label>Username: <%= user.username %></label> 
+                    <input type="text" name="user"><br>
+                    
+                    <label>Password: </label> 
+                    <input type="password" name="password"><br>
+
+                    <label>Confirm new password: </label> 
+                    <input type="password" name="confirmpassword"><br>
+
+                </div>
+
+            </div>
+        
+            <button type="submit" class = "submit-button">Save</button>
+        </form>
+    </div>
+<% } %>
+
+    
+<%- include("footer", {}) %>

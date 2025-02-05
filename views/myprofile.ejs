@@ -5,7 +5,7 @@
 
 <% if (user.role == 'Patient'){%>
     <div class="button-container">
-        <a href="/update-patient" class="custom-button">Update profile</a>
+        <a href="/update-profile" class="custom-button">Update profile</a>
       </div>
     
     <div class = "container mt-5">
@@ -14,7 +14,7 @@
                 <div class="col-md-9">
                     <div class="card-body">
                         <h3 class="card-title mb-3"><%= patient.name %> <%= patient.lastname %></h3>
-                        <p class="card-text"><strong>Date of birth:</strong> <%= patient.dob %></p>
+                        <p class="card-text"><strong>Date of Birth:</strong> <%= formatDate(patient.dob) %></p>
                         <p class="card-text"><strong>Phone number:</strong> <%= patient.phone %></p>
                         <p class="card-text"><strong>Gender:</strong> <%= patient.gender %></p>
                         <p class="card-text"><strong>Doctor: </strong> <%= doctor.name %> <%= doctor.lastname %></p>
@@ -30,7 +30,7 @@
 <% if (user.role == 'Doctor'){%>
 
     <div class="button-container">
-        <a href="/update-doctor" class="custom-button">Update profile</a>
+        <a href="/update-profile" class="custom-button">Update profile</a>
       </div>
     
     <div class = "container mt-5">

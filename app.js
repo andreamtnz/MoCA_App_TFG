@@ -14,6 +14,8 @@ const viewDoctorsRouter = require('./routes/viewdoctors');
 const adminviewdoctorRouter = require('./routes/adminviewdoctor');
 const createDoctorRouter = require('./routes/create-doctor');
 const patientViewTestsRouter = require('./routes/patient-viewtests');
+const updateProfileRouter = require('./routes/update-profile');
+
 
 
 const app = express();
@@ -57,6 +59,7 @@ app.use('/viewdoctors', viewDoctorsRouter);
 app.use('/adminviewdoctor', adminviewdoctorRouter);
 app.use('/create-doctor', createDoctorRouter);
 app.use('/patient-viewtests', patientViewTestsRouter);
+app.use('/update-profile', updateProfileRouter);
 
 function restricted(req, res, next){
   if(req.session.user){
@@ -65,6 +68,13 @@ function restricted(req, res, next){
     res.redirect("login");
   }
 }
+
+//formatting dates
+const { format } = require('date-fns');
+
+app.locals.formatDate = (date) => {
+  return format(new Date(date), 'dd MMM yyyy');
+};
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

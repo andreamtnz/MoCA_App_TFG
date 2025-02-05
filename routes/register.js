@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
       const doctors = await sequelize.models.doctor.findAll();
       
       if (doctors.length > 0) { //doctors available in db
-        const randomIndex = Math.floor(Math.random() * doctors.length); // doctor aleatorio
+        const randomIndex = Math.floor(Math.random() * doctors.length); // random doctor 
         const doctorAssigned = doctors[randomIndex]; 
         console.log('Doctor assigned:', doctorAssigned);
         const newPatient = await sequelize.models.patient.create({
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
         res.redirect("/register");
       }
       
-    } else { //usetname in use
+    } else { //username in use
       req.session.error = "Username already in use.";
       res.redirect("/register");
     }

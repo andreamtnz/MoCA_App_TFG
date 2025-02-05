@@ -5,7 +5,10 @@ const sequelize = require('../sequelize');
 
 router.get('/', async(req, res) => {
   try{
-    const user = req.session.user;
+    const sessionUser = req.session.user;
+    const user = await sequelize.models.user.findOne({
+      where: {id: sessionUser.id},
+    });
 
     if (user.role == 'Doctor'){
       const doctor = await sequelize.models.doctor.findOne({
