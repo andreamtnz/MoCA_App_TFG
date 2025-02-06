@@ -52,26 +52,33 @@ router.post('/', async (req, res)=>{
         req.session.error = req.session.error || [];
 
 
-        if (pass && confirmpass) { // both password fields are filled
+        if (pass || confirmpass){ // one of the fields is filled
+
+          if (pass && confirmpass) { // both password fields are filled
             if (pass !== confirmpass) {
-                req.session.error = "Passwords do not match.";
-                return res.redirect("/update-profile");
-            }
+              //req.session.error = "Passwords do not match.";
+              return res.redirect("/update-profile");
+              }
             else {
-                const hashedPassword = await bcrypt.hash(pass, 10);
-                await sequelize.models.user.update({ 
-                    password: hashedPassword },
-                    { where: { id: user.id } });
+              const hashedPassword = await bcrypt.hash(pass, 10);
+              await sequelize.models.user.update({ 
+                password: hashedPassword },
+                { where: { id: user.id } });
                 req.session.message.push("Password updated successfully!");
             }
+          } else {
+            req.session.error = "To change the password you must fill both fields.";
+            return res.redirect("/update-profile");
+          }
+
         }
         
-        if(username && username!=user.username ){ // username not in use or has not been changed
+        if(username && username!=user.username ){ // username has not been changed
             const userInUse = await sequelize.models.user.findOne({
                 where: {username: username}
             });
 
-            if (!userInUse){
+            if (!userInUse){ //username not in use
                 try{
                     await sequelize.models.user.update({
                         username: username,
@@ -83,6 +90,10 @@ router.post('/', async (req, res)=>{
                     req.session.error.push("Invalid username format.");
                     return res.redirect("/update-profile");
                 }
+            }
+            else{
+              req.session.error.push("Username already in use.");
+              return res.redirect("/update-profile");
             }
             
         }
@@ -135,11 +146,19 @@ router.post('/', async (req, res)=>{
                
 
         }
+
+        if (req.session.message.length === 0) {
+          delete req.session.message;
+      }
+      if (req.session.error.length === 0) {
+          delete req.session.error;
+      }
+      
         
 
       
      
-    res.redirect("/myprofile");
+    res.redirect("/update-profile");
     
     }catch (error) {
         console.error('Error fetching profile details:', error);
