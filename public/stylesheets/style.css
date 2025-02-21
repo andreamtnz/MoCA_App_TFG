@@ -215,18 +215,6 @@ canvas {
 }
 
 
-.exercise-container {
-  display: flex;
-  justify-content: center;
-  gap: 100px; /* Espacio entre los grupos de imagen y texto */
-  top: 20%;
-}
-
-.image-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 
 
