@@ -9,7 +9,7 @@ router.get('/', async(req, res) => {
   try{
     const user = req.session.user;
 
-    if(!user){
+    if(!user || (user.role != "Doctor" && user.role != "Patient") ){
         return res.redirect('/login');
     }
 

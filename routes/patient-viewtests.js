@@ -5,6 +5,11 @@ const sequelize = require('../sequelize');
 
 router.get('/:id', async (req, res) => {
   const userId = req.params.id;
+  const user = req.session.user;
+
+  if(!user || user.role != "Patient"){
+    return res.redirect('/login');
+  }
 
   
   try {
@@ -18,10 +23,7 @@ router.get('/:id', async (req, res) => {
 
     const tests = await sequelize.models.testResult.findAll({ where: { patientId: patient.id } });
 
-    /*if (!tests) {
-      return res.status(404).send('No tests were found.');
-    }*/
-
+    
     res.render('patient-tests', { //renderizamos vista tests
         tests,
         user: req.session.user,

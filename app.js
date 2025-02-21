@@ -15,6 +15,7 @@ const adminviewdoctorRouter = require('./routes/adminviewdoctor');
 const createDoctorRouter = require('./routes/create-doctor');
 const patientViewTestsRouter = require('./routes/patient-viewtests');
 const updateProfileRouter = require('./routes/update-profile');
+const mocatestRouter = require('./routes/mocatest');
 
 
 
@@ -60,6 +61,7 @@ app.use('/adminviewdoctor', adminviewdoctorRouter);
 app.use('/create-doctor', createDoctorRouter);
 app.use('/patient-viewtests', patientViewTestsRouter);
 app.use('/update-profile', updateProfileRouter);
+app.use('/mocatest', mocatestRouter);
 
 function restricted(req, res, next){
   if(req.session.user){
