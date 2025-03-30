@@ -356,7 +356,7 @@ function showexercise3part2(){
     //const containsAllwords = expectedWords.every(word => recognizedText.includes(word));
     
     document.getElementById("exercise3-part1").style.display = "none"; //hide current exercise
-    const containsAllwords = true;
+    const containsAllwords = true; //TODO remove this and uncomment line 356
     if(containsAllwords){ //exercise performed successfully
         recognizedText = null;
         audioBlob = null;
@@ -759,6 +759,7 @@ function showexercise5part2(){
 
 function showexercise6(){
     stopAudio("ex5 part2 fwords");
+    playAudio("ex6 abstraction");
     if(recognizedText){
         downloadtxt("fwords", recognizedText);
     }
@@ -766,7 +767,53 @@ function showexercise6(){
         downloadaudio("fwords", audioBlob);
     }
     document.getElementById("exercise5-part2").style.display = "none";
+    document.getElementById("startButton").style.display = "none"; //TODO QUITAR
     document.getElementById("exercise6").style.display = "block";
+}
+
+function showexercise7part1(){
+    stopAudio("ex6 abstraction");
+
+    var transport = document.getElementById("textTransport").value;
+    var measuring = document.getElementById("textMeasuring").value;
+    
+    var abstraction = "Train - Bycicle: " + transport + "\nRuler - Watch: " + measuring ;
+
+    downloadtxt("abstraction", abstraction);
+    playAudio("ex7 part1 delayedrecall");
+
+    document.getElementById("exercise6").style.display = "none";
+    document.getElementById("exercise7-part1").style.display = "block";
+}
+
+function showexercise7part2(){
+    stopAudio("ex7 part1 delayedrecall");
+    
+    var word1 = document.getElementById("ex7part1word1").value;
+    var word2= document.getElementById("ex7part1word2").value;
+    var word3= document.getElementById("ex7part1word3").value;
+    var word4= document.getElementById("ex7part1word4").value;
+    var word5= document.getElementById("ex7part1word5").value;
+    
+    const introducedWords = word1 + ", " + word2 + ", " + word3 + ", " + word4 + ", " + word5;
+    const expectedWords = ["face", "velvet", "church", "daisy", "red"];
+    const containsAllwords = expectedWords.every(word => introducedWords.includes(word));
+    
+    var delayedrecall1 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
+    downloadtxt("delayedrecall1", delayedrecall1);
+
+    document.getElementById("exercise7-part1").style.display = "none";
+
+    if(containsAllwords){ // all words are correct
+        showexercise8part1();
+    }else{ // some words are not right
+        document.getElementById("exercise7-part2").style.display = "block";
+        playAudio("ex7 part2 delayedrecall");
+    }
+}
+
+function showexercise8part1(){
+    document.getElementById("exercise8-part1").style.display = "block";
 }
 
 

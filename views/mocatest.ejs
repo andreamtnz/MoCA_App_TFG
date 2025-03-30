@@ -1,7 +1,8 @@
 <%- include("header", {user: user}) %>
 <h1 style="text-align: center; margin-top: 20px">MoCA Test</h1>
 
-<button id = "startButton" onclick="showexercise1part1()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button>
+<button id = "startButton" onclick="showexercise6()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button>
+<!-- <button id = "startButton" onclick="showexercise1part1()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button> -->
 
 
 <div id = "exercise1-part1" class = "exercise-container" style="display: none;">
@@ -224,10 +225,55 @@
 
 <div id = "exercise6" class = "exercise-container" style = "display: none;">
     <h2 style="text-align: center; margin-top: 20px;">Exercise 6</h2>
+    
+    <div class = "text-box" style = "position: absolute; top: 45%; left: 40%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center; border: 1px solid gray;background-color:white; border-radius: 5px;">Orange - Banana</div>
+    <div class = "text-box" style = "position: absolute; top: 45%; left: 60%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center; border: 1px solid gray;background-color:white; border-radius: 5px;">Fruits</div>
+    <div class = "text-box" style = "position: absolute; top: 50%; left: 40%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center; border: 1px solid gray;background-color:white; border-radius: 5px;">Train - Bycicle</div>
+    <input type="text" id="textTransport" placeholder="Write here" 
+    style="position: absolute; top: 50%; left: 60%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+    <div class = "text-box" style = "position: absolute; top: 55%; left: 40%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center; border: 1px solid gray;background-color:white; border-radius: 5px;">Ruler - Watch</div>
+    <input type="text" id="textMeasuring" placeholder="Write here" 
+    style="position: absolute; top: 55%; left: 60%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+
+    
+    <button id="next-exercise6" onclick="showexercise7part1()" class = "next-button" style="display: block;">Next</button>
+
+    <audio id = "ex6 abstraction" style="position: absolute; top: 85%; left: 50%; transform: translateX(-50%); ">
+        <source src="/moca audios/ex6 abstraction.mp3" type="audio/mpeg" >
+    </audio>
+
+</div>
+
+<div id = "exercise7-part1" class = "exercise-container" style = "display: none;">
+    <h2 style="text-align: center; margin-top: 20px;">Exercise 7</h2>
+
+
+    <input type="text" id="ex7part1word1" placeholder="Write here" 
+    style="position: absolute; top: 40%; left: 50%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+    <input type="text" id="ex7part1word2" placeholder="Write here" 
+    style="position: absolute; top: 45%; left: 50%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+    <input type="text" id="ex7part1word3" placeholder="Write here" 
+    style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+    <input type="text" id="ex7part1word4" placeholder="Write here" 
+    style="position: absolute; top: 55%; left: 50%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+    <input type="text" id="ex7part1word5" placeholder="Write here" 
+    style="position: absolute; top: 60%; left: 50%; transform: translateX(-50%); width: 200px; height: 30px; text-align: center;">
+    
+    <button id="next-exercise7-part1" onclick="showexercise7part2()" class = "next-button" style="display: block;">Next</button>
+
+    <audio id = "ex7 part1 delayedrecall" style="position: absolute; top: 85%; left: 50%; transform: translateX(-50%); ">
+        <source src="/moca audios/ex7 part1 delayedrecall.mp3" type="audio/mpeg" >
+    </audio>
 </div>
 
 
+<div id = "exercise7-part2" class = "exercise-container" style = "display: none;">
+    <h2 style="text-align: center; margin-top: 20px;">Exercise 7</h2>
+</div>
 
+<div id = "exercise8-part1" class = "exercise-container" style = "display: none;">
+    <h2 style="text-align: center; margin-top: 20px;">Exercise 8</h2>
+</div>
 
 
 
