@@ -812,9 +812,124 @@ function showexercise7part2(){
     }
 }
 
-function showexercise8part1(){
-    document.getElementById("exercise8-part1").style.display = "block";
+function showexercise7part3(){
+    stopAudio("ex7 part2 delayedrecall");
+    
+    var word1 = document.getElementById("ex7part2word1").value;
+    var word2= document.getElementById("ex7part2word2").value;
+    var word3= document.getElementById("ex7part2word3").value;
+    var word4= document.getElementById("ex7part2word4").value;
+    var word5= document.getElementById("ex7part2word5").value;
+    
+    const introducedWords = word1 + ", " + word2 + ", " + word3 + ", " + word4 + ", " + word5;
+    const expectedWords = ["face", "velvet", "church", "daisy", "red"];
+    const containsAllwords = expectedWords.every(word => introducedWords.includes(word));
+    
+    var delayedrecall2 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
+    downloadtxt("delayedrecall2", delayedrecall2);
+
+    document.getElementById("exercise7-part2").style.display = "none";
+
+    if(containsAllwords){ // all words are correct
+        showexercise8part1();
+    }else{ // some words are not right
+        document.getElementById("exercise7-part3").style.display = "block";
+        playAudio("ex7 part3 delayedrecall");
+    }
+
 }
+
+function showexercise8part1(){
+    stopAudio("ex7 part3 delayedrecall");
+
+    var word1 = document.getElementById("ex7part3word1").value;
+    var word2= document.getElementById("ex7part3word2").value;
+    var word3= document.getElementById("ex7part3word3").value;
+    var word4= document.getElementById("ex7part3word4").value;
+    var word5= document.getElementById("ex7part3word5").value;
+    
+    const introducedWords = word1 + ", " + word2 + ", " + word3 + ", " + word4 + ", " + word5;
+    const expectedWords = ["face", "velvet", "church", "daisy", "red"];
+    
+    var delayedrecall3 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
+    downloadtxt("delayedrecall3", delayedrecall3);
+
+    document.getElementById("exercise7-part3").style.display = "none";
+    document.getElementById("exercise8-part1").style.display = "block";
+    playAudio("ex8 part1 date");
+}
+
+function showexercise8part2(){
+    stopAudio("ex8 part1 date");
+
+    var date = document.getElementById("ex8part1date").value;
+    var year = document.getElementById("ex8part1year").value;
+    var month = document.getElementById("ex8part1month").value;
+    var day = document.getElementById("ex8part1day").value;
+    
+    var correctAnswer = new Date();
+    
+    var dateexercise = "Date: " + date + "\nYear: " + year + "\nMonth: " + month + "\nDay of the week: " + day + "\nRight answer: " + correctAnswer;
+    downloadtxt("date", dateexercise);
+
+    document.getElementById("exercise8-part1").style.display = "none";
+    document.getElementById("exercise8-part2").style.display = "block";
+
+    playAudio("ex8 part2 place");
+    cityLocated = "";
+    detectUserCity();
+}
+
+var cityLocated = "";
+
+function finishTest(){
+    stopAudio("ex8 part2 place");
+    
+    var place = document.getElementById("ex8part2place").value;
+    var city = document.getElementById("ex8part2city").value;
+
+    var placeexercise = "Place: " + place + "\nCity: " + city + "\nRight answer: " + cityLocated;
+    downloadtxt("place", placeexercise);
+
+    document.getElementById("exercise8-part2").style.display = "none";
+    document.getElementById("finishTest").style.display = "block";
+
+}
+
+
+
+function detectUserCity() {
+    console.log("inside detectUsercity")
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+    function success(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        // Llamada a Nominatim
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`, {
+            headers: {
+                'User-Agent': 'MocaApp/1.0' // Requerido por Nominatim
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const address = data.address;
+            cityLocated = address.city || address.town || address.village || address.state || "Unknown location";
+
+        })
+        .catch(err => {
+            console.error("Error fetching city:", err);
+        });
+    }
+
+    function error(err) {
+        console.error("Location error:", err.message);
+    }
+}
+
 
 
 
