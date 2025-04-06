@@ -1,0 +1,38 @@
+<%- include("header", {user: user}) %>
+<h1 style="text-align: center; margin-top: 20px; padding-bottom: 20px;">My patients</h1>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <% if (patients && patients.length > 0) { %>
+
+        <% patients.forEach(patient => { %>
+            <!-- Hacer clic en toda la tarjeta para redirigir a la página del doctor -->
+
+            <div class="col-md-6 mb-4">
+                <div class="cardMovement mb-4 d-flex flex-row align-items-center" style="padding: 10px; background-color: #f0f0f0; border-radius: 10px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="padding: 10px;""><%= patient.name %> <%= patient.lastname %></h5>
+                        <p class="card-text"><strong>Phone number:</strong> <%= patient.phone %></p>
+                        <p class="card-text"><strong>Gender:</strong> <%= patient.gender%></p>
+                        <p class="card-text"><strong>Birth date:</strong> <%= formatDate(patient.dob) %></p>
+                    </div>
+
+                    <% if (patient.dataValues.newTests > 0) { %>
+                        <div style="margin-left: 20px; background-color: orange; color: white; padding: 10px 15px; border-radius: 8px; font-weight: bold;">
+                          🔔 <%= patient.dataValues.newTests %> New Test<%= patient.dataValues.newTests > 1 ? 's' : '' %>
+                        </div>
+                    <% } %>
+
+                </div>
+            </div>
+        <% }) %> <!--cierra forEach -->
+    
+    <% } else { %>
+      <p>No patients are available at the moment.</p>
+    
+    <% } %>
+  </div>
+</div>
+
+<%- include("footer", {}) %>
