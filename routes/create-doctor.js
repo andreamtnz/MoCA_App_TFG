@@ -44,9 +44,9 @@ router.post('/', isAdmin, async (req, res) => {
               description: description,
               image: image,
               userId : newUser.id, // le asociamos al user que se ha creado
-              }); 
+            }); 
 
-            req.session.message = "Doctor created successfully!"
+            req.session.message = "Doctor created successfully!";
             res.redirect("/viewdoctors"); //volvemos a viewdoctors
           } else {
             req.session.error = "Not valid username";

@@ -1,8 +1,8 @@
 <%- include("header", {user: user}) %>
 <h1 style="text-align: center; margin-top: 20px">MoCA Test</h1>
 
-<button id = "startButton" onclick="showexercise6()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button>
-<!-- <button id = "startButton" onclick="showexercise1part1()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button> -->
+ <!-- <button id = "startButton" onclick="showexercise6()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button>  -->
+<button id = "startButton" onclick="showexercise1part1()" class = "next-button" style = "height: 10%; width: 10%; font-size: 200%; position: absolute; top: 50%; left: 50%; transform: translateX(-50%)">Start</button>
 
 
 <div id = "exercise1-part1" class = "exercise-container" style="display: none;">
@@ -118,7 +118,6 @@
 
 
 </div>
-<!-- TODO: falta añadir el audio 3 de memoria -->
 
 <div id = "exercise4-part1-1" class = "exercise-container" style = "display: none;">
     <audio id = "ex3 part3 memory" style="position: absolute; top: 85%; left: 50%; transform: translateX(-50%); ">
@@ -382,7 +381,7 @@
 <div id = "finishTest" class = "exercise-container" style = "display: none;">
     <h2 style="text-align: center; margin-top: 20px;">Thank you for completing your test.</h2>
     <h3 style="text-align: center; margin-top: 40px;">
-        Your doctor will carefully review your results, and they will be shared with you afterward.<br>
+        Your doctor will carefully review your results, and they will be shared with you afterwards.<br>
         If you have any questions in the meantime, please don't hesitate to reach out.
     </h3>
       
@@ -397,8 +396,10 @@
 
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> 
 <script src="/scripts/mocatest.js"></script>
+
+
 
 
 

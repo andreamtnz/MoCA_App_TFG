@@ -1,5 +1,4 @@
-//
-
+const zip = new JSZip();
 var clickedBubbles = [];
 var startTime = Date.now();
 var canvas = "";
@@ -68,7 +67,7 @@ function showexercise1part2() {
     var text = clickedBubbles.join(', ') + '\nTime: ' + timeUsed + 'ms';
 
     downloadtxt("bubbles", text);
-    
+    zip.file("bubbles.txt", text); //adding txt to zip
     document.getElementById("exercise1-part1").style.display = "none";
     document.getElementById("exercise1-part2").style.display = "block";
     
@@ -196,6 +195,9 @@ function showexercise1part3(){
     stopAudio("ex1 part2 cube");
 
     downloadCanvas("cube");
+    const imageBlob = getImageBlob();
+    zip.file("cube.png", imageBlob);
+    zip
     document.getElementById("exercise1-part2").style.display = "none";
     document.getElementById("exercise1-part3").style.display = "block";
     
@@ -210,6 +212,8 @@ function showexercise2(){
     stopAudio("ex1 part3 clock");
 
     downloadCanvas("clock");
+    const imageBlob = getImageBlob();
+    zip.file("clock.png", imageBlob)
     document.getElementById("exercise1-part3").style.display = "none";
     document.getElementById("exercise2").style.display = "block";
     playAudio("ex2 animals");
@@ -227,7 +231,7 @@ function showexercise3part1(){
     var text = "Lion: " + contenido1 + "\nRhino: " + contenido2 + "\nCamel: " + contenido3;
 
     downloadtxt("animals", text);
-    
+    zip.file("animals.txt", text);
     document.getElementById("exercise2").style.display = "none";
     document.getElementById("exercise3-part1").style.display = "block";
     
@@ -346,17 +350,18 @@ function showexercise3part2(){
     if(recognizedText){  
         const textContext = "Expected words: " + expectedWords.join(", ") + "\nRecognized text: " + recognizedText;
         downloadtxt("memory_try1", textContext);
+        zip.file("memory_try1.txt", textContext);
     }
     if(audioBlob){
         downloadaudio("memory_try1", audioBlob);
+        zip.file("memory_try1.wav", audioBlob);
     }
     //check words
     
     recognizedText = recognizedText.toLowerCase().split("");
-    //const containsAllwords = expectedWords.every(word => recognizedText.includes(word));
+    const containsAllwords = expectedWords.every(word => recognizedText.includes(word));
     
     document.getElementById("exercise3-part1").style.display = "none"; //hide current exercise
-    const containsAllwords = true; //TODO remove this and uncomment line 356
     if(containsAllwords){ //exercise performed successfully
         recognizedText = null;
         audioBlob = null;
@@ -395,10 +400,13 @@ function showexercise4part11(){
     //download text and audio
     if(recognizedText){
         const textContext = "Expected words: "+ expectedWords.join(", ") + "\nRecognized text: " + recognizedText;
-        downloadtxt("memory_try2", textContext);        
+        downloadtxt("memory_try2", textContext);       
+        zip.file("memory_try2.txt", textContext); 
     }
     if(audioBlob){
         downloadaudio("memory_try2", audioBlob);
+        zip.file("memory_try2.wav", audioBlob);
+
     }
 
     recognizedText = null; // empty for next exercises
@@ -453,6 +461,7 @@ function showexercise4part12(){
     stopAudio("ex4 part1 forward");
     var forwardNumbersValue = document.getElementById("forwardNumbers").value;
     downloadtxt("forwardNumbers", forwardNumbersValue);
+    zip.file("forwardNumbers.txt", forwardNumbersValue);
     document.getElementById("exercise4-part1-1").style.display = "none";
     document.getElementById("exercise4-part1-2").style.display = "block";
 
@@ -477,6 +486,8 @@ function showexercise4part2(){
 
     var backwardNumbersValue = document.getElementById("backwardNumbers").value;
     downloadtxt("backwardNumbers", backwardNumbersValue);
+    zip.file("backwardNumbers.txt", backwardNumbersValue);
+
     document.getElementById("exercise4-part1-2").style.display = "none";
     document.getElementById("exercise4-part2").style.display = "block";
 
@@ -513,6 +524,8 @@ function showexercise4part3(){
     var text =  clickedA.join(', ') ;
     text = text + '\nOrientative correct answers: 12.303, 17.299, 18.708, 24.854, 27.113, 32.522, 34.029, 35.081, 37.553, 42.449, 43.821';
     downloadtxt("clickedAs", text);
+    zip.file("clickedAs.txt", text);
+
 
     document.getElementById("exercise4-part2").style.display = "none";
     document.getElementById("exercise4-part3").style.display = "block";
@@ -537,6 +550,7 @@ function saveSubstraction(){
 function showexercise5part11(){
     stopAudio("ex4 part3 substraction");
     downloadtxt("substraction", substractionValues);
+    zip.file("substraction.txt", substractionValues);
 
     document.getElementById("exercise4-part3").style.display = "none";
     document.getElementById("exercise5-part11").style.display = "block";
@@ -568,9 +582,13 @@ function showexercise5part12(){
         const expectedText = "Expected text: I only know that John is the one to help today.";
         const textContext = expectedText + "\nRecognized text: " + recognizedText;
         downloadtxt("sentence1", textContext);
+        zip.file("sentence1.txt", textContext);
+
     }
     if(audioBlob){
         downloadaudio("sentence1", audioBlob);
+        zip.file("sentence1.wav", audioBlob);
+
     }
 
     recognizedText = null; // empty for next exercises
@@ -734,9 +752,13 @@ function showexercise5part2(){
         const expectedText = "Expected text: The cat always hid under the couch when dogs were in the room.";
         const textContext = expectedText + "\nRecognized text: " + recognizedText;
         downloadtxt("sentence2", textContext);
+        zip.file("sentence2.txt", textContext);
+
     }
     if(audioBlob){
         downloadaudio("sentence2", audioBlob);
+        zip.file("sentence2.wav", audioBlob);
+
     }
 
     recognizedText = null; // empty for next exercises
@@ -750,7 +772,14 @@ function showexercise5part2(){
     const nextbutton = document.getElementById("next-exercise5-part2");
     const status = document.getElementById("recordingStatus");
     const timerElement = document.getElementById("timer");
+    startbutton.style.display = "none"; // hide button until audio has finished
     playAudio("ex5 part2 fwords");
+    const audio = document.getElementById("ex5 part2 fwords");
+
+    audio.addEventListener("ended", function() {
+        startbutton.style.display = "block"; 
+        console.log("audio finished. showing startbutton...");
+    });
     setupAudioRecordingTimer(startbutton, nextbutton, status, timerElement);
     
 
@@ -762,9 +791,12 @@ function showexercise6(){
     playAudio("ex6 abstraction");
     if(recognizedText){
         downloadtxt("fwords", recognizedText);
+        zip.file("fwords.txt", recognizedText);
     }
     if(audioBlob){
         downloadaudio("fwords", audioBlob);
+        zip.file("fwords.wav", audioBlob);
+
     }
     document.getElementById("exercise5-part2").style.display = "none";
     document.getElementById("startButton").style.display = "none"; //TODO QUITAR
@@ -780,6 +812,7 @@ function showexercise7part1(){
     var abstraction = "Train - Bycicle: " + transport + "\nRuler - Watch: " + measuring ;
 
     downloadtxt("abstraction", abstraction);
+    zip.file("abstraction.txt", abstraction);
     playAudio("ex7 part1 delayedrecall");
 
     document.getElementById("exercise6").style.display = "none";
@@ -801,6 +834,7 @@ function showexercise7part2(){
     
     var delayedrecall1 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
     downloadtxt("delayedrecall1", delayedrecall1);
+    zip.file("delayedrecall1.txt", delayedrecall1);
 
     document.getElementById("exercise7-part1").style.display = "none";
 
@@ -827,6 +861,7 @@ function showexercise7part3(){
     
     var delayedrecall2 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
     downloadtxt("delayedrecall2", delayedrecall2);
+    zip.file("delayedrecall2.txt", delayedrecall2);
 
     document.getElementById("exercise7-part2").style.display = "none";
 
@@ -853,6 +888,7 @@ function showexercise8part1(){
     
     var delayedrecall3 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
     downloadtxt("delayedrecall3", delayedrecall3);
+    zip.file("delayedrecall3.txt", delayedrecall3);
 
     document.getElementById("exercise7-part3").style.display = "none";
     document.getElementById("exercise8-part1").style.display = "block";
@@ -871,6 +907,7 @@ function showexercise8part2(){
     
     var dateexercise = "Date: " + date + "\nYear: " + year + "\nMonth: " + month + "\nDay of the week: " + day + "\nRight answer: " + correctAnswer;
     downloadtxt("date", dateexercise);
+    zip.file("date.txt", dateexercise);
 
     document.getElementById("exercise8-part1").style.display = "none";
     document.getElementById("exercise8-part2").style.display = "block";
@@ -890,9 +927,11 @@ function finishTest(){
 
     var placeexercise = "Place: " + place + "\nCity: " + city + "\nRight answer: " + cityLocated;
     downloadtxt("place", placeexercise);
+    zip.file("place.txt", placeexercise);
 
     document.getElementById("exercise8-part2").style.display = "none";
     document.getElementById("finishTest").style.display = "block";
+    saveZip();
 
 }
 
@@ -929,6 +968,41 @@ function detectUserCity() {
         console.error("Location error:", err.message);
     }
 }
+
+async function saveZip(){
+
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+
+    const formData = new FormData();
+    formData.append("zipfile", zipBlob, "results.zip");
+
+    fetch("/saveResultsToDb", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("ZIP sent correctly:", data);
+      })
+      .catch(err => {
+        console.error("Fail to send ZIP:", err);
+      });
+
+}
+
+function getImageBlob() {
+    return new Promise(resolve => {
+      //const canvas = document.getElementById("canvas-dibujo"); // tu canvas
+      canvas.toBlob(blob => resolve(blob), "image/png");
+    });
+  }
+
+  function getAudioBlob() {
+    return new Promise(resolve => {
+      resolve(audioFinalBlob); // esto es el Blob que guardaste al finalizar la grabación
+    });
+  }
+   
 
 
 
