@@ -18,6 +18,11 @@ const updateProfileRouter = require('./routes/update-profile');
 const mocatestRouter = require('./routes/mocatest');
 const saveResultsToDbRouter = require('./routes/saveResultsToDb');
 const doctorViewPatientsRouter = require('./routes/doctor-viewpatients');
+const doctorViewPatientRouter = require('./routes/doctor-viewpatient');
+const getResultsFromDbRouter = require('./routes/getResultsFromDb');
+
+
+
 
 
 
@@ -66,6 +71,9 @@ app.use('/update-profile', updateProfileRouter);
 app.use('/mocatest', mocatestRouter);
 app.use('/saveResultsToDb', saveResultsToDbRouter);
 app.use('/doctor-viewpatients', doctorViewPatientsRouter);
+app.use('/doctor-viewpatient', doctorViewPatientRouter);
+app.use('/getResultsFromDb', getResultsFromDbRouter)
+
 
 function restricted(req, res, next){
   if(req.session.user){

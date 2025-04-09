@@ -144,6 +144,18 @@ input {
   margin-bottom: 20px;     /* Espacio debajo del botón */
 }
 
+.download-button {
+  width: 100px;
+  padding: 8px;
+  background-color: #20835b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-content: center;
+  
+}
+
 
 .custom-button {
   display: flex;

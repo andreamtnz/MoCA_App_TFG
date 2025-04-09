@@ -3,7 +3,16 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../sequelize'); 
 
-router.get('/', async (req, res) => {
+// Verificación de que el usuario es un doctor
+function isDoctor(req, res, next) {
+    if (req.session.user && req.session.user.role === 'Doctor') {
+        next(); // Si es doctor, continuar
+    } else {
+        res.redirect('/login'); // Si no, redirigir al inicio de sesión
+    }
+  }
+
+router.get('/', isDoctor, async (req, res) => {
     try{
         const sessionUser = req.session.user;
         const user = await sequelize.models.user.findOne({

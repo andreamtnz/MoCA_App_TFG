@@ -1,0 +1,47 @@
+<%- include("header", {user: user}) %>
+<h1 style="text-align: center; margin-top: 20px; padding-bottom: 20px;"> <%= patient.name %> <%= patient.lastname %>'s History</h1>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <% if (tests && tests.length > 0) { %>
+
+        <% tests.forEach(test => { %>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card mb-4 d-flex flex-row " style="padding: 10px; background-color: #f0f0f0; border-radius: 10px;">
+                    
+                <!-- Izquierda: info del test -->
+                <div >
+                    <h5 class="card-title"><%= test.testType %></h5>
+                    <p class="card-text"><strong>Date:</strong> <%= formatDate(test.date) %></p>
+                    <% if (test.evaluation == null) { %>
+                    <p class="card-text"><strong>Evaluation:</strong> pending...</p>
+                    <% } else { %>
+                    <p class="card-text"><strong>Evaluation:</strong> <%= test.evaluation %></p>
+                    <% } %>
+                </div>
+
+                                  
+                <div>
+                    <button onclick="downloadZip(<%= test.id %>)" class="download-button" style="position: absolute; right: 5%; top: 10%">Download</button>
+                    <% if (test.evaluation == null) { %>
+                    <button onclick="downloadZip()" class="download-button" style="position: absolute; right: 5%; bottom: 10%">Evaluate</button>
+                    <% } %>
+
+                </div>
+        
+            </div>
+        <% }) %> <!--cierra forEach -->
+    
+    <% } else { %>
+      <p>This patient has not performed any tests yet</p>
+    
+    <% } %>
+  </div>
+</div>
+
+<script src="/scripts/downloadZip.js"></script>
+
+
+<%- include("footer", {}) %>

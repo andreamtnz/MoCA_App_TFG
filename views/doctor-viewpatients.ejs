@@ -7,12 +7,14 @@
     <% if (patients && patients.length > 0) { %>
 
         <% patients.forEach(patient => { %>
-            <!-- Hacer clic en toda la tarjeta para redirigir a la página del doctor -->
+            <!-- Hacer clic en toda la tarjeta para redirigir a la página del paciente -->
+            <a href="/doctor-viewpatient/<%= patient.id %>" style="text-decoration: none; color: inherit;">
+
 
             <div class="col-md-6 mb-4">
                 <div class="cardMovement mb-4 d-flex flex-row align-items-center" style="padding: 10px; background-color: #f0f0f0; border-radius: 10px;">
                     <div class="card-body">
-                        <h5 class="card-title" style="padding: 10px;""><%= patient.name %> <%= patient.lastname %></h5>
+                        <h5 class="card-title" style="padding: 10px;"><%= patient.name %> <%= patient.lastname %></h5>
                         <p class="card-text"><strong>Phone number:</strong> <%= patient.phone %></p>
                         <p class="card-text"><strong>Gender:</strong> <%= patient.gender%></p>
                         <p class="card-text"><strong>Birth date:</strong> <%= formatDate(patient.dob) %></p>
