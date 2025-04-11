@@ -20,8 +20,7 @@ const saveResultsToDbRouter = require('./routes/saveResultsToDb');
 const doctorViewPatientsRouter = require('./routes/doctor-viewpatients');
 const doctorViewPatientRouter = require('./routes/doctor-viewpatient');
 const getResultsFromDbRouter = require('./routes/getResultsFromDb');
-
-
+const saveEvaluationToDbRouter = require('./routes/saveEvaluationToDb');
 
 
 
@@ -73,6 +72,7 @@ app.use('/saveResultsToDb', saveResultsToDbRouter);
 app.use('/doctor-viewpatients', doctorViewPatientsRouter);
 app.use('/doctor-viewpatient', doctorViewPatientRouter);
 app.use('/getResultsFromDb', getResultsFromDbRouter)
+app.use('/saveEvaluationToDb', saveEvaluationToDbRouter)
 
 
 function restricted(req, res, next){

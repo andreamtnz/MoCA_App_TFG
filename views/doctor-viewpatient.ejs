@@ -26,8 +26,15 @@
                 <div>
                     <button onclick="downloadZip(<%= test.id %>)" class="download-button" style="position: absolute; right: 5%; top: 10%">Download</button>
                     <% if (test.evaluation == null) { %>
-                    <button onclick="downloadZip()" class="download-button" style="position: absolute; right: 5%; bottom: 10%">Evaluate</button>
+                        <button onclick="openEvaluationForm(<%= test.id %>)" class="download-button" style="position: absolute; right: 5%; bottom: 10%">Evaluate</button>
+                      
+                        <form id="evaluate<%= test.id %>" style="display: none; position: absolute; width: 50%" onsubmit="submitEvaluation(event, <%= test.id %>)">
+                          <textarea name="evaluation"  rows="3" style="width: 100%;" placeholder="Write evaluation..." required></textarea>
+                          <br>
+                          <button type="submit" class="btn btn-primary btn-sm mt-2">Save</button>
+                        </form>
                     <% } %>
+                      
 
                 </div>
         
