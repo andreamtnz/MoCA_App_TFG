@@ -4,8 +4,16 @@ const sequelize = require('../sequelize');
 const bcrypt = require('bcrypt');
 
 router.get('/', function(req, res, next) {
-  res.render('login', {user: req.session.user});
+  if(req.session.user && req.session.user.role){
+    res.redirect('/myprofile');
+  }else{
+    res.render('login', {
+      user: req.session.user
+    });
+  }
 });
+
+
 
 router.post('/', async (req, res) => {
   const username = req.body.user;
@@ -20,7 +28,7 @@ router.post('/', async (req, res) => {
         };
         req.session.message = "Successful log in!"
         if(user.role == 'Patient'){
-          res.redirect(`/patient-viewtests/${user.id}`);
+          res.redirect("/patient-viewtests");
         }
         if(user.role == 'Doctor'){
           res.redirect("/myprofile");

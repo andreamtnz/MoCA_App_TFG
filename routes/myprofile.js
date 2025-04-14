@@ -5,9 +5,9 @@ const sequelize = require('../sequelize');
 
 router.get('/', async(req, res) => {
   try{
-    const sessionUser = req.session.user;
+    //const sessionUser = req.session.user;
     const user = await sequelize.models.user.findOne({
-      where: {id: sessionUser.id},
+      where: {id: req.session.user.id},
     });
 
     if (user.role == 'Doctor'){
@@ -31,6 +31,10 @@ router.get('/', async(req, res) => {
         patient,
         doctor,
       });
+    } else if(user.role == 'Administrator'){
+      res.render('myprofile', {
+        user,
+      })
     }
   }catch (error) {
     console.error('Error fetching profile details:', error);

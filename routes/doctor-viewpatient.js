@@ -7,17 +7,24 @@ function isDoctor(req, res, next) {
   if (req.session.user && req.session.user.role === 'Doctor') {
       next(); // Si es doctor, continuar
   } else {
-      res.redirect('/login'); // Si no, redirigir al inicio de sesión
+      return res.redirect('/login'); // Si no, redirigir al inicio de sesión
   }
 }
 
-// get all tests from the specific test
+// get all tests from the specific patient
 router.get('/:id', isDoctor, async (req, res) => {//patient's id is a parameter
   const patientId = req.params.id;
   try {
     // Obtener la información del paciente por ID
+    const doctor = await sequelize.models.doctor.findOne({
+      where: { userId: req.session.user.id,
+      }
+    })
+
     const patient = await sequelize.models.patient.findOne({
-       where: { id: patientId },      
+       where: { id: patientId,
+          doctorId: doctor.id
+       },      
     });
 
     
@@ -25,7 +32,7 @@ router.get('/:id', isDoctor, async (req, res) => {//patient's id is a parameter
     const tests = await sequelize.models.testResult.findAll({ where: { patientId: patientId } });
 
     if (!patient) {
-      return res.status(404).send('Patient not found');
+      return res.redirect("/doctor-viewpatients");      
     }
 
     // Renderizar la vista con la información del user (doctor en este caso) y sus pacientes

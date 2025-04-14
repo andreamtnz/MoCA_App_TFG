@@ -3,10 +3,16 @@ const router = express.Router();
 const sequelize = require('../sequelize');
 const bcrypt = require('bcrypt');
 
+
 router.get('/', function(req, res, next) {
+  if(req.session.user && req.session.user.role){
+    res.redirect('/myprofile');
+  }else{
     res.render('register', {
       user: req.session.user
     });
+  }
+    
 });
 
 router.post('/', async (req, res) => {

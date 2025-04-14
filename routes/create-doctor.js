@@ -9,7 +9,7 @@ function isAdmin(req, res, next) {
   if (req.session.user && req.session.user.role === 'Administrator') {
       next(); // Si es administrador, continuar
   } else {
-      res.redirect('/login'); // Si no, redirigir al inicio de sesión
+      return res.redirect('/login'); // Si no, redirigir al inicio de sesión
   }
 }
 
@@ -47,7 +47,7 @@ router.post('/', isAdmin, async (req, res) => {
             }); 
 
             req.session.message = "Doctor created successfully!";
-            res.redirect("/viewdoctors"); //volvemos a viewdoctors
+            return res.redirect("/viewdoctors"); //volvemos a viewdoctors
           } else {
             req.session.error = "Not valid username";
             res.redirect("/create-doctor");

@@ -9,11 +9,19 @@ router.get('/', async(req, res) => {
   try{
     const user = req.session.user;
 
-    if(!user || (user.role != "Doctor" && user.role != "Patient") ){
+    if(!user || (user.role != "Doctor" && user.role != "Patient" && user.role != "Administrator") ){
         return res.redirect('/login');
     }
 
-    if (user.role == 'Doctor'){
+    if (user.role == 'Administrator'){
+      const doctor = await sequelize.models.doctor.findOne({
+        where: {userId: user.id},
+      });
+      return res.render('update-profile', {
+        user: req.session.user,
+      });
+
+    } else if (user.role == 'Doctor'){
       const doctor = await sequelize.models.doctor.findOne({
         where: {userId: user.id},
       });

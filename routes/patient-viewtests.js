@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../sequelize'); 
 
-router.get('/:id', async (req, res) => {
-  const userId = req.params.id;
+router.get('/', async (req, res) => {
+  //const userId = req.params.id;
   const user = req.session.user;
 
   if(!user || user.role != "Patient"){
@@ -14,7 +14,7 @@ router.get('/:id', async (req, res) => {
   
   try {
     const patient = await sequelize.models.patient.findOne({
-       where: { userId: userId },
+       where: { userId: user.id },
     });
     
     if(!patient){

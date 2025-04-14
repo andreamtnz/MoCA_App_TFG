@@ -2,8 +2,15 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../sequelize');
 
+function isDoctor(req, res, next) {
+  if (req.session.user && req.session.user.role === 'Doctor') {
+      next(); // Si es doctor, continuar
+  } else {
+      return res.redirect('/login'); // Si no, redirigir al inicio de sesión
+  }
+}
 
-router.post('/:id/evaluate', async (req, res) => {
+router.post('/:id/evaluate', isDoctor, async (req, res) => {
     const testId = req.params.id;
     const { evaluation } = req.body;
   

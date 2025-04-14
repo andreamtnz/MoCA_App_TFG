@@ -90,5 +90,30 @@
     </div>
 <% } %>
 
+<% if (user.role == 'Administrator'){%>
+    <div class = "form-container update-profile">
+        <form method="post" action="/update-profile">
+            <div class = "form-columns">
+                               
+                <div class = "column">
+                    <h2>Account Information</h2>
+                    <label>Username: <%= user.username %></label> 
+                    <input type="text" name="user"><br>
+                    
+                    <label>Password: </label> 
+                    <input type="password" name="password"><br>
+
+                    <label>Confirm new password: </label> 
+                    <input type="password" name="confirmpassword"><br>
+
+                </div>
+
+            </div>
+        
+            <button type="submit" class = "submit-button">Save</button>
+        </form>
+    </div>
+<% } %>
+
     
 <%- include("footer", {}) %>

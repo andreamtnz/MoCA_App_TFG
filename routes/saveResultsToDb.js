@@ -14,7 +14,7 @@ function isPatient(req, res, next) {
     }
 }
 
-router.post('/', upload.single('zipfile'), async(req, res) => {
+router.post('/', isPatient, upload.single('zipfile'), async(req, res) => {
     
     try {
     if(!req.file){

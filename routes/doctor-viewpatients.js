@@ -15,23 +15,17 @@ function isDoctor(req, res, next) {
 router.get('/', isDoctor, async (req, res) => {
     try{
         const sessionUser = req.session.user;
-        const user = await sequelize.models.user.findOne({
-            where: {id: sessionUser.id},
-        });
-
-        if(!user || user.role != "Doctor"){
-            return res.redirect('/login');
-        }
-  
+                
         const doctor = await sequelize.models.doctor.findOne({
-            where: { userId: user.id },
+            where: { userId: sessionUser.id },
         });
         
         if(!doctor){
-            return res.status(404).send('Doctor not found');
+           return res.redirect('/login');
         }   
 
         const patients = await sequelize.models.patient.findAll({ where: { doctorId: doctor.id } });
+
         for (const patient of patients){
             const newTests = await sequelize.models.testResult.count({
                 where: {
@@ -39,7 +33,6 @@ router.get('/', isDoctor, async (req, res) => {
                     evaluation: null
                 }
             });
-            //patient.setDataValue('newTests', newTests)
             patient.dataValues.newTests = newTests;
             console.log("New tests: ", patient.dataValues.newTests);
         }
