@@ -4,7 +4,7 @@ const router = express.Router();
 const sequelize = require('../sequelize');
 
 function isAdmin(req, res, next) {
-    if (req.session.user && req.session.user.role === 'Doctor') {
+    if (req.session.user && req.session.user.role === 'Administrator') {
         next(); // Si es doctor, continuar
     } else {
         return res.redirect('/login'); // Si no, redirigir al inicio de sesión
@@ -19,7 +19,6 @@ router.get('/', isAdmin,  async (req, res) => {
         const doctors = await  sequelize.models.doctor.findAll();
         res.render('viewdoctors', {
             user:req.session.user,
-            
             doctors: doctors
         });  // Renderizamos la vista 'viewdoctors.ejs'
     } catch (error){

@@ -3,13 +3,14 @@ const router = express.Router();
 const sequelize = require('../sequelize');
 const bcrypt = require('bcrypt');
 
+const upload = require('../utils/upload');
 
 
 router.get('/', async(req, res) => {
   try{
     const user = req.session.user;
 
-    if(!user || (user.role != "Doctor" && user.role != "Patient" && user.role != "Administrator") ){
+    if(!user || (user.role != "Doctor" && user.role != "Patient" && user.role != "Administrator") ){ // no user or not role assigned
         return res.redirect('/login');
     }
 
@@ -49,7 +50,7 @@ router.get('/', async(req, res) => {
   
 });
 
-router.post('/', async (req, res)=>{
+router.post('/', upload.single('image'), async (req, res)=>{
     try{
         const user = req.session.user;    
         const username = req.body.user;
@@ -135,8 +136,8 @@ router.post('/', async (req, res)=>{
             const lastname = req.body.lastname;
             const license_number = req.body.license_number;
             const specialty = req.body.specialty;
-            const image = req.body.image;
             const description = req.body.description;
+            const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
             const updateFields = {};
 
@@ -145,7 +146,7 @@ router.post('/', async (req, res)=>{
             if(specialty) updateFields.specialty = specialty;
             if(license_number) updateFields.license_number = license_number;
             if(description) updateFields.description = description;
-            if(image) updateFields.image = image;
+            if(imagePath) updateFields.image = imagePath;
 
             if (Object.keys(updateFields).length > 0) {
                 await sequelize.models.doctor.update(updateFields, { where: { userId: user.id } });

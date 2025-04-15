@@ -4,6 +4,8 @@ const sequelize = require('../sequelize');
 const bcrypt = require('bcrypt');
 
 
+const upload = require('../utils/upload');
+
 // Verificación de que el usuario es un administrador
 function isAdmin(req, res, next) {
   if (req.session.user && req.session.user.role === 'Administrator') {
@@ -22,11 +24,12 @@ router.get('/', isAdmin, (req, res) => {
 });
 
 // Ruta para manejar la creación del doctor (POST)
-router.post('/', isAdmin, async (req, res) => {
+router.post('/', isAdmin, upload.single('image'), async (req, res) => {
     const username = req.body.user;
     const pass = req.body.password;
 
-    const { name, lastname, specialty, license_number, description, image } = req.body;
+    const { name, lastname, specialty, license_number, description } = req.body;
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
     const user = await sequelize.models.user.findOne({where: {username}});
 
     try {
@@ -42,7 +45,7 @@ router.post('/', isAdmin, async (req, res) => {
               specialty: specialty,
               license_number: license_number,
               description: description,
-              image: image,
+              image: imagePath,
               userId : newUser.id, // le asociamos al user que se ha creado
             }); 
 

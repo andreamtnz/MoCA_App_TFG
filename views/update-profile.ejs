@@ -52,7 +52,7 @@
 
 <% if (user.role == 'Doctor'){%>
     <div class = "form-container update-profile">
-        <form method="post" action="/update-profile">
+        <form method="post" action="/update-profile" enctype="multipart/form-data">
             <div class = "form-columns">
                 <div class = "column">
                     <h2>Personal Information</h2>
@@ -66,8 +66,20 @@
                     <input type="text" name="license_number" ><br>
                     
                     <label>Specialty: <%= doctor.specialty%></label> <br>
-                    <input type="text" name="specialty" ><br>
+                    <div class = "specialty-options">
+                        <label>
+                          <input type="radio" name="specialty" value="neurology"> Neurology
+                        </label>
+                        <label>
+                          <input type="radio" name="specialty" value="psicology"> Psicology
+                        </label><br>
+                    </div>
 
+                    <label>Description: </label> 
+                    <input type="text" name="description" required><br>
+
+                    <label>Image: </label> 
+                    <input type="file" name="image" accept="image/*" required>
                 </div>
                 
                 <div class = "column">

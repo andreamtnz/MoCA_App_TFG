@@ -3,7 +3,7 @@
 <h1 style="text-align: center; margin-top: 20px;">Create New Doctor</h1>
 
 <div class = "form-container">
-  <form method="post" action="/create-doctor">
+  <form method="post" action="/create-doctor" enctype="multipart/form-data">
     <label>Name: </label>
     <input type="text" name="name" required><br>
     
@@ -28,8 +28,8 @@
     <input type="text" name="description" required><br>
 
     <label>Image: </label> 
-    <input type="text" name="image" required><br>
-    
+    <input type="file" name="image" accept="image/*" required>
+
     <label>Username: </label> 
     <input type="text" name="user" required><br>
     

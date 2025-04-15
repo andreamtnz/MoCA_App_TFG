@@ -8,7 +8,7 @@ function isDoctor(req, res, next) {
   if (req.session.user && req.session.user.role === 'Doctor') {
       next(); // Si es doctor, continuar
   } else {
-      return res.redirect('/login'); // Si no, redirigir al inicio de sesión
+      return res.redirect('/myprofile'); // Si no, redirigir al inicio de sesión
   }
 }
 
