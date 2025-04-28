@@ -238,7 +238,7 @@ function showexercise3part1(){
     const startbutton = document.getElementById('start-exercise3-part1');
     const stopbutton = document.getElementById('stop-exercise3-part1');
     const nextbutton = document.getElementById('next-exercise3-part1');
-    const transcriptDisplay = document.getElementById('recordingStatus');
+    const transcriptDisplay = document.getElementById('recordingStatus31');
     const audio = document.getElementById("ex3 part1 memory");
 
     audio.addEventListener("ended", function() {
@@ -371,7 +371,7 @@ function showexercise3part2(){
         const startbutton = document.getElementById('start-exercise3-part2');
         const stopbutton = document.getElementById('stop-exercise3-part2');
         const nextbutton = document.getElementById('next-exercise3-part2');
-        const transcriptDisplay = document.getElementById('recordingStatus');
+        const transcriptDisplay = document.getElementById('recordingStatus32');
         const audio = document.getElementById("ex3 part2 memory");
 
         audio.addEventListener("ended", function() {
@@ -558,7 +558,7 @@ function showexercise5part11(){
     const startbutton = document.getElementById("start-exercise5-part11");
     const stopbutton = document.getElementById("stop-exercise5-part11");
     const nextbutton = document.getElementById("next-exercise5-part11");
-    const transcriptDisplay = document.getElementById("recordingStatus");
+    const transcriptDisplay = document.getElementById("recordingStatus511");
     
     playAudio("ex5 part1 sentence1");
     console.log("play audio ex5 part1 sentence2");
@@ -600,7 +600,7 @@ function showexercise5part12(){
     const startbutton = document.getElementById('start-exercise5-part12');
     const stopbutton = document.getElementById('stop-exercise5-part12');
     const nextbutton = document.getElementById('next-exercise5-part12');
-    const transcriptDisplay = document.getElementById('recordingStatus');
+    const transcriptDisplay = document.getElementById('recordingStatus512');
 
 
     playAudio("ex5 part1 sentence2");
@@ -770,7 +770,7 @@ function showexercise5part2(){
     //functionality
     const startbutton = document.getElementById("start-exercise5-part2");
     const nextbutton = document.getElementById("next-exercise5-part2");
-    const status = document.getElementById("recordingStatus");
+    const status = document.getElementById("recordingStatus52");
     const timerElement = document.getElementById("timer");
     startbutton.style.display = "none"; // hide button until audio has finished
     playAudio("ex5 part2 fwords");
