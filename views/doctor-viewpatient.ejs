@@ -8,8 +8,8 @@
 
         <% tests.forEach(test => { %>
             
-            <div class="col-md-6 mb-4">
-                <div class="card mb-4 d-flex flex-row " style="padding: 10px; background-color: #f0f0f0; border-radius: 10px;">
+          <div class="col-md-6 mb-4">
+              <div class="card mb-4 d-flex flex-row " style="padding: 10px; background-color: #f0f0f0; border-radius: 10px;">
                     
                 <!-- Izquierda: info del test -->
                 <div >
@@ -34,19 +34,18 @@
                           <button type="submit" class="btn btn-primary btn-sm mt-2">Save</button>
                         </form>
                     <% } %>
-                      
-
                 </div>
+               </div> <!--close card--> 
         
-            </div>
+          </div> <!--close col md 6 mb4-->
         <% }) %> <!--cierra forEach -->
     
     <% } else { %>
       <p>This patient has not performed any tests yet</p>
     
     <% } %>
-  </div>
-</div>
+  </div> <!--close row justify content center-->
+</div> <!--close containner-->
 
 <script src="/scripts/downloadZip.js"></script>
 
