@@ -1,6 +1,8 @@
 const zip = new JSZip();
 var clickedBubbles = [];
-var startTime = Date.now();
+//var startTime = Date.now();
+var startTime = "";
+
 var canvas = "";
 var ctx = "";
 
@@ -45,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function showexercise1part1(){
     document.getElementById("startButton").style.display = "none";
     document.getElementById("exercise1-part1").style.display = "block"; 
-    playAudio("ex1 part1 bubbles");    
+    playAudio("ex1 part1 bubbles");
+    startTime = Date.now();    
 
 }
 
@@ -66,8 +69,8 @@ function showexercise1part2() {
     var timeUsed = Date.now() - startTime;
     var text = clickedBubbles.join(', ') + '\nTime: ' + timeUsed + 'ms';
 
-    downloadtxt("bubbles", text);
-    zip.file("bubbles.txt", text); //adding txt to zip
+    //downloadtxt("bubbles", text);
+    zip.file("sec1-visuospatial-executive-bubbles.txt", text); //adding txt to zip
     document.getElementById("exercise1-part1").style.display = "none";
     document.getElementById("exercise1-part2").style.display = "block";
     
@@ -78,6 +81,7 @@ function showexercise1part2() {
 
     enableDrawing(canvas);
     playAudio("ex1 part2 cube");
+    startTime = Date.now();
 }
 
 
@@ -193,11 +197,15 @@ function drawCube(){
 
 function showexercise1part3(){
     stopAudio("ex1 part2 cube");
+    var timeUsed = Date.now() - startTime;
+    var text = 'Time: ' + timeUsed + 'ms';
 
-    downloadCanvas("cube");
+    //downloadCanvas("cube");
+    
     const imageBlob = getImageBlob();
-    zip.file("cube.png", imageBlob);
-    zip
+    zip.file("sec1-visuospatial-executive-cube.png", imageBlob);
+    zip.file("sec1-visuospatial-executive-cube.txt", text);
+
     document.getElementById("exercise1-part2").style.display = "none";
     document.getElementById("exercise1-part3").style.display = "block";
     
@@ -206,17 +214,23 @@ function showexercise1part3(){
     enableDrawing(canvas);  
 
     playAudio("ex1 part3 clock");
+    startTime = Date.now();
 }
 
 function showexercise2(){
     stopAudio("ex1 part3 clock");
+    var timeUsed = Date.now() - startTime;
+    var text = 'Time: ' + timeUsed + 'ms';
 
-    downloadCanvas("clock");
+    //downloadCanvas("clock");
     const imageBlob = getImageBlob();
     zip.file("clock.png", imageBlob)
+    zip.file("sec1-visuospatial-executive-clock.txt", text);
+
     document.getElementById("exercise1-part3").style.display = "none";
     document.getElementById("exercise2").style.display = "block";
     playAudio("ex2 animals");
+    startTime = Date.now();
 }
 
 
@@ -228,10 +242,12 @@ function showexercise3part1(){
     var contenido2 = document.getElementById("textRhino").value;
     var contenido3 = document.getElementById("textCamel").value;
     
+    var timeUsed = Date.now() - startTime;
     var text = "Lion: " + contenido1 + "\nRhino: " + contenido2 + "\nCamel: " + contenido3;
+    text = text + "\nTime: " + timeUsed + "ms";
 
-    downloadtxt("animals", text);
-    zip.file("animals.txt", text);
+    //downloadtxt("animals", text);
+    zip.file("sec2-naming-animals.txt", text);
     document.getElementById("exercise2").style.display = "none";
     document.getElementById("exercise3-part1").style.display = "block";
     
@@ -248,6 +264,7 @@ function showexercise3part1(){
     setupAudioRecording(startbutton, stopbutton, nextbutton, transcriptDisplay); //buttons to stop recording and next are managed here
     
     playAudio("ex3 part1 memory");
+    startTime = Date.now();
     
 }
 
@@ -344,17 +361,17 @@ function setupAudioRecording(startbutton, stopbutton, nextbutton, transcriptDisp
 
 function showexercise3part2(){
     stopAudio("ex3 part1 memory");
-
+    var timeUsed = Date.now() - startTime;
     const expectedWords = ["face", "velvet", "church", "daisy", "red"];
     //download text and audio
     if(recognizedText){  
-        const textContext = "Expected words: " + expectedWords.join(", ") + "\nRecognized text: " + recognizedText;
-        downloadtxt("memory_try1", textContext);
-        zip.file("memory_try1.txt", textContext);
+        const textContext = "Expected words: " + expectedWords.join(", ") + "\nRecognized text: " + recognizedText + "\nTime: " + timeUsed + "ms";
+        //downloadtxt("memory_try1", textContext);
+        zip.file("sec3-memory-try1.txt", textContext);
     }
     if(audioBlob){
-        downloadaudio("memory_try1", audioBlob);
-        zip.file("memory_try1.wav", audioBlob);
+        //downloadaudio("memory_try1", audioBlob);
+        zip.file("sec3-memory-try1.wav", audioBlob);
     }
     //check words
     
@@ -366,6 +383,7 @@ function showexercise3part2(){
         recognizedText = null;
         audioBlob = null;
         showexercise4part11(); //TODO: check this works
+        startTime = Date.now();
     }else{ //exercise with mistakes --> second try
         document.getElementById("exercise3-part2").style.display = "block";
         const startbutton = document.getElementById('start-exercise3-part2');
@@ -386,6 +404,7 @@ function showexercise3part2(){
         setupAudioRecording(startbutton, stopbutton, nextbutton, transcriptDisplay);   //buttons to stop recording and next are managed here
     
         playAudio("ex3 part2 memory");
+        startTime = Date.now();
     }
     
 
@@ -396,16 +415,18 @@ function showexercise4part11(){
 
     playAudio("ex3 part3 memory");
 
+    var timeUsed = Date.now() - startTime;
+
     const expectedWords = ["face", "velvet", "church", "daisy", "red"];
     //download text and audio
     if(recognizedText){
-        const textContext = "Expected words: "+ expectedWords.join(", ") + "\nRecognized text: " + recognizedText;
-        downloadtxt("memory_try2", textContext);       
-        zip.file("memory_try2.txt", textContext); 
+        const textContext = "Expected words: "+ expectedWords.join(", ") + "\nRecognized text: " + recognizedText + "\nTime: " + timeUsed + "ms";
+        //downloadtxt("memory_try2", textContext);       
+        zip.file("sec3-memory-try2.txt", textContext); 
     }
     if(audioBlob){
-        downloadaudio("memory_try2", audioBlob);
-        zip.file("memory_try2.wav", audioBlob);
+        //downloadaudio("memory_try2", audioBlob);
+        zip.file("sec3-memory-try2.wav", audioBlob);
 
     }
 
@@ -417,6 +438,7 @@ function showexercise4part11(){
         document.getElementById("exercise3-part2").style.display = "none";
         document.getElementById("exercise4-part1-1").style.display = "block";
         playAudio("ex4 part1 forward");
+        startTime = Date.now();
     })
      
    
@@ -459,13 +481,16 @@ function downloadaudio(name, audioBlob){
 
 function showexercise4part12(){
     stopAudio("ex4 part1 forward");
-    var forwardNumbersValue = document.getElementById("forwardNumbers").value;
-    downloadtxt("forwardNumbers", forwardNumbersValue);
-    zip.file("forwardNumbers.txt", forwardNumbersValue);
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
+    var forwardNumbersValue = document.getElementById("forwardNumbers").value + text;
+    //downloadtxt("forwardNumbers", forwardNumbersValue);
+    zip.file("sec4-attention-forwardNumbers.txt", forwardNumbersValue);
     document.getElementById("exercise4-part1-1").style.display = "none";
     document.getElementById("exercise4-part1-2").style.display = "block";
 
     playAudio("ex4 part1 backward");
+    startTime = Date.now();
 
     const audio2 = document.getElementById("ex4 part1 backward");
     const writeHere = document.getElementById("backwardNumbers");
@@ -483,15 +508,17 @@ var clickedTimes = [];
 
 function showexercise4part2(){
     stopAudio("ex4 part1 backward");
-
-    var backwardNumbersValue = document.getElementById("backwardNumbers").value;
-    downloadtxt("backwardNumbers", backwardNumbersValue);
-    zip.file("backwardNumbers.txt", backwardNumbersValue);
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
+    var backwardNumbersValue = document.getElementById("backwardNumbers").value + text;
+    //downloadtxt("backwardNumbers", backwardNumbersValue);
+    zip.file("sec4-attention-backwardNumbers.txt", backwardNumbersValue);
 
     document.getElementById("exercise4-part1-2").style.display = "none";
     document.getElementById("exercise4-part2").style.display = "block";
 
     playAudio("ex4 part2 clickedAs");
+    startTime = Date.now();
     clickedTimes.push(Date.now());
 
     //functionality of ex 4 part 2
@@ -517,20 +544,23 @@ function showexercise4part2(){
 
 function showexercise4part3(){
     stopAudio("ex4 part2 clickedAs");
+    var timeUsed = Date.now() - startTime;
+    var timetext = "\nTime: " + timeUsed + "ms"
     var clickedA = []
     for (i = 0; i< clickedTimes.length -1; i++){
         clickedA[i] = clickedTimes[i+1] - clickedTimes[0]
     }
     var text =  clickedA.join(', ') ;
-    text = text + '\nOrientative correct answers: 12.303, 17.299, 18.708, 24.854, 27.113, 32.522, 34.029, 35.081, 37.553, 42.449, 43.821';
-    downloadtxt("clickedAs", text);
-    zip.file("clickedAs.txt", text);
+    text = text + '\nOrientative correct answers: 12.303, 17.299, 18.708, 24.854, 27.113, 32.522, 34.029, 35.081, 37.553, 42.449, 43.821' + timetext;
+    //downloadtxt("clickedAs", text);
+    zip.file("sec4-attention-clickedAs.txt", text);
 
 
     document.getElementById("exercise4-part2").style.display = "none";
     document.getElementById("exercise4-part3").style.display = "block";
 
     playAudio("ex4 part3 substraction");
+    startTime = Date.now();
 
     
 }
@@ -549,8 +579,10 @@ function saveSubstraction(){
 
 function showexercise5part11(){
     stopAudio("ex4 part3 substraction");
-    downloadtxt("substraction", substractionValues);
-    zip.file("substraction.txt", substractionValues);
+    var timeUsed = Date.now() - startTime;
+    var text = substractionValues + "\nTime: " + timeUsed + "ms";
+    //downloadtxt("substraction", substractionValues);
+    zip.file("sec4-attention-substraction.txt", text);
 
     document.getElementById("exercise4-part3").style.display = "none";
     document.getElementById("exercise5-part11").style.display = "block";
@@ -561,6 +593,7 @@ function showexercise5part11(){
     const transcriptDisplay = document.getElementById("recordingStatus511");
     
     playAudio("ex5 part1 sentence1");
+    startTime = Date.now();
     console.log("play audio ex5 part1 sentence2");
 
     const audio = document.getElementById("ex5 part1 sentence1");
@@ -576,18 +609,20 @@ function showexercise5part11(){
 function showexercise5part12(){
     stopAudio("ex5 part1 sentence1");
     console.log("stop audio ex5 part1 sentence1");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
 
     //download text and audio
     if(recognizedText){
         const expectedText = "Expected text: I only know that John is the one to help today.";
-        const textContext = expectedText + "\nRecognized text: " + recognizedText;
-        downloadtxt("sentence1", textContext);
-        zip.file("sentence1.txt", textContext);
+        const textContext = expectedText + "\nRecognized text: " + recognizedText + text;
+        //downloadtxt("sentence1", textContext);
+        zip.file("sec5-language-sentence1.txt", textContext);
 
     }
     if(audioBlob){
-        downloadaudio("sentence1", audioBlob);
-        zip.file("sentence1.wav", audioBlob);
+        //downloadaudio("sentence1", audioBlob);
+        zip.file("sec5-language-sentence1.wav", audioBlob);
 
     }
 
@@ -604,6 +639,7 @@ function showexercise5part12(){
 
 
     playAudio("ex5 part1 sentence2");
+    startTime = Date.now();
     console.log("play audio ex5 part1 sentence2");
 
     const audio = document.getElementById("ex5 part1 sentence2");
@@ -745,19 +781,21 @@ function setupAudioRecordingTimer(startbutton, nextbutton, transcriptDisplay, ti
 
 function showexercise5part2(){
     stopAudio("ex5 part1 sentence2");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
     console.log("stop audio ex5 part1 sentence2");
 
     //download text and audio
     if(recognizedText){
         const expectedText = "Expected text: The cat always hid under the couch when dogs were in the room.";
-        const textContext = expectedText + "\nRecognized text: " + recognizedText;
-        downloadtxt("sentence2", textContext);
-        zip.file("sentence2.txt", textContext);
+        const textContext = expectedText + "\nRecognized text: " + recognizedText + text;
+        //downloadtxt("sentence2", textContext);
+        zip.file("sec5-language-sentence2.txt", textContext);
 
     }
     if(audioBlob){
-        downloadaudio("sentence2", audioBlob);
-        zip.file("sentence2.wav", audioBlob);
+        //downloadaudio("sentence2", audioBlob);
+        zip.file("sec5-language-sentence2.wav", audioBlob);
 
     }
 
@@ -774,6 +812,7 @@ function showexercise5part2(){
     const timerElement = document.getElementById("timer");
     startbutton.style.display = "none"; // hide button until audio has finished
     playAudio("ex5 part2 fwords");
+    startTime = Date.now();
     const audio = document.getElementById("ex5 part2 fwords");
 
     audio.addEventListener("ended", function() {
@@ -788,14 +827,17 @@ function showexercise5part2(){
 
 function showexercise6(){
     stopAudio("ex5 part2 fwords");
+    var timeUsed = Date.now() - startTime;
+    var text = recognizedText + "\nTime: " + timeUsed + "ms";
     playAudio("ex6 abstraction");
+    startTime = Date.now();
     if(recognizedText){
-        downloadtxt("fwords", recognizedText);
-        zip.file("fwords.txt", recognizedText);
+        //downloadtxt("fwords", recognizedText);
+        zip.file("sec5-language-fwords.txt", text);
     }
     if(audioBlob){
-        downloadaudio("fwords", audioBlob);
-        zip.file("fwords.wav", audioBlob);
+        //downloadaudio("fwords", audioBlob);
+        zip.file("sec5-language-fwords.wav", audioBlob);
 
     }
     document.getElementById("exercise5-part2").style.display = "none";
@@ -805,15 +847,18 @@ function showexercise6(){
 
 function showexercise7part1(){
     stopAudio("ex6 abstraction");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
 
     var transport = document.getElementById("textTransport").value;
     var measuring = document.getElementById("textMeasuring").value;
     
-    var abstraction = "Train - Bycicle: " + transport + "\nRuler - Watch: " + measuring ;
+    var abstraction = "Train - Bycicle: " + transport + "\nRuler - Watch: " + measuring  + text;
 
-    downloadtxt("abstraction", abstraction);
-    zip.file("abstraction.txt", abstraction);
+    //downloadtxt("abstraction", abstraction);
+    zip.file("sec6-abstraction.txt", abstraction);
     playAudio("ex7 part1 delayedrecall");
+    startTime = Date.now();
 
     document.getElementById("exercise6").style.display = "none";
     document.getElementById("exercise7-part1").style.display = "block";
@@ -821,6 +866,8 @@ function showexercise7part1(){
 
 function showexercise7part2(){
     stopAudio("ex7 part1 delayedrecall");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
     
     var word1 = document.getElementById("ex7part1word1").value;
     var word2= document.getElementById("ex7part1word2").value;
@@ -832,22 +879,26 @@ function showexercise7part2(){
     const expectedWords = ["face", "velvet", "church", "daisy", "red"];
     const containsAllwords = expectedWords.every(word => introducedWords.includes(word));
     
-    var delayedrecall1 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
-    downloadtxt("delayedrecall1", delayedrecall1);
-    zip.file("delayedrecall1.txt", delayedrecall1);
+    var delayedrecall1 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords + text;
+    //downloadtxt("delayedrecall1", delayedrecall1);
+    zip.file("sec7-delayedrecall-try1.txt", delayedrecall1);
 
     document.getElementById("exercise7-part1").style.display = "none";
 
     if(containsAllwords){ // all words are correct
         showexercise8part1();
+        starTime = Date.now();
     }else{ // some words are not right
         document.getElementById("exercise7-part2").style.display = "block";
         playAudio("ex7 part2 delayedrecall");
+        startTime = Date.now();
     }
 }
 
 function showexercise7part3(){
     stopAudio("ex7 part2 delayedrecall");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
     
     var word1 = document.getElementById("ex7part2word1").value;
     var word2= document.getElementById("ex7part2word2").value;
@@ -859,23 +910,27 @@ function showexercise7part3(){
     const expectedWords = ["face", "velvet", "church", "daisy", "red"];
     const containsAllwords = expectedWords.every(word => introducedWords.includes(word));
     
-    var delayedrecall2 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
-    downloadtxt("delayedrecall2", delayedrecall2);
-    zip.file("delayedrecall2.txt", delayedrecall2);
+    var delayedrecall2 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords + text;
+    //downloadtxt("delayedrecall2", delayedrecall2);
+    zip.file("sec7-delayedrecall-try2.txt", delayedrecall2);
 
     document.getElementById("exercise7-part2").style.display = "none";
 
     if(containsAllwords){ // all words are correct
         showexercise8part1();
+        startTime = Date.now();
     }else{ // some words are not right
         document.getElementById("exercise7-part3").style.display = "block";
         playAudio("ex7 part3 delayedrecall");
+        startTime = Date.now();
     }
 
 }
 
 function showexercise8part1(){
     stopAudio("ex7 part3 delayedrecall");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
 
     var word1 = document.getElementById("ex7part3word1").value;
     var word2= document.getElementById("ex7part3word2").value;
@@ -886,17 +941,20 @@ function showexercise8part1(){
     const introducedWords = word1 + ", " + word2 + ", " + word3 + ", " + word4 + ", " + word5;
     const expectedWords = ["face", "velvet", "church", "daisy", "red"];
     
-    var delayedrecall3 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords;
-    downloadtxt("delayedrecall3", delayedrecall3);
-    zip.file("delayedrecall3.txt", delayedrecall3);
+    var delayedrecall3 = "Expected words: "+ expectedWords.join(", ") + "\nIntroduced words: " + introducedWords + text;
+    //downloadtxt("delayedrecall3", delayedrecall3);
+    zip.file("sec7-delayedrecall-try3.txt", delayedrecall3);
 
     document.getElementById("exercise7-part3").style.display = "none";
     document.getElementById("exercise8-part1").style.display = "block";
     playAudio("ex8 part1 date");
+    startTime = Date.now();
 }
 
 function showexercise8part2(){
     stopAudio("ex8 part1 date");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
 
     var date = document.getElementById("ex8part1date").value;
     var year = document.getElementById("ex8part1year").value;
@@ -905,15 +963,16 @@ function showexercise8part2(){
     
     var correctAnswer = new Date();
     
-    var dateexercise = "Date: " + date + "\nYear: " + year + "\nMonth: " + month + "\nDay of the week: " + day + "\nRight answer: " + correctAnswer;
-    downloadtxt("date", dateexercise);
-    zip.file("date.txt", dateexercise);
+    var dateexercise = "Date: " + date + "\nYear: " + year + "\nMonth: " + month + "\nDay of the week: " + day + "\nRight answer: " + correctAnswer + text;
+    //downloadtxt("date", dateexercise);
+    zip.file("sec8-orientation-date.txt", dateexercise);
 
     document.getElementById("exercise8-part1").style.display = "none";
     document.getElementById("exercise8-part2").style.display = "block";
 
     playAudio("ex8 part2 place");
-    cityLocated = "";
+    startDate = Date.now();
+
     detectUserCity();
 }
 
@@ -921,16 +980,19 @@ var cityLocated = "";
 
 function finishTest(){
     stopAudio("ex8 part2 place");
+    var timeUsed = Date.now() - startTime;
+    var text = "\nTime: " + timeUsed + "ms";
     
     var place = document.getElementById("ex8part2place").value;
     var city = document.getElementById("ex8part2city").value;
 
-    var placeexercise = "Place: " + place + "\nCity: " + city + "\nRight answer: " + cityLocated;
-    downloadtxt("place", placeexercise);
-    zip.file("place.txt", placeexercise);
+    var placeexercise = "Place: " + place + "\nCity: " + city + "\nRight answer: " + cityLocated + text;
+    //downloadtxt("place", placeexercise);
+    zip.file("sec8-orientation-place.txt", placeexercise);
 
     document.getElementById("exercise8-part2").style.display = "none";
     document.getElementById("finishTest").style.display = "block";
+    startTime = "";
     saveZip();
 
 }
