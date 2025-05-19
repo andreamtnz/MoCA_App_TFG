@@ -35,6 +35,21 @@ router.post('/', isAdmin, upload.single('image'), async (req, res) => {
     try {
 
         if(!user){ // si el username es válido
+
+            const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordValidation.test(pass)) {
+                req.session.error = "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.";
+                req.session.message = null;
+                return res.redirect("/create-doctor");
+            }
+
+            const usernameValidation = /^\w{3,}$/;
+            if (!usernameValidation.test(username)) {
+                req.session.error = "Username must have at least 3 characters and only contain letters, numbers, or underscores.";
+                req.session.message = null;
+                return res.redirect("/update-profile");
+            }
+
             const password = await bcrypt.hash(pass, 10);
             const newUser = await sequelize.models.user.create({username, password, role: 'Doctor'}); // añadimos el role porque los que se registran son directamente pacientes
             req.session.message = "User created successfully!"
