@@ -56,16 +56,26 @@ router.post('/', upload.single('image'), async (req, res)=>{
         const username = req.body.user;
         const pass = req.body.password;
         const confirmpass = req.body.confirmpassword;
-
+        
         req.session.message = req.session.message || [];
         req.session.error = req.session.error || [];
 
+            
 
         if (pass || confirmpass){ // one of the fields is filled
 
           if (pass && confirmpass) { // both password fields are filled
+            
+            const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordValidation.test(pass)) {
+                req.session.error = "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.";
+                req.session.message = null;
+                return res.redirect("/update-profile");
+            }
+
             if (pass !== confirmpass) {
-              //req.session.error = "Passwords do not match.";
+              req.session.error = "Passwords do not match.";
+              req.session.message = null;
               return res.redirect("/update-profile");
               }
             else {
@@ -77,6 +87,7 @@ router.post('/', upload.single('image'), async (req, res)=>{
             }
           } else {
             req.session.error = "To change the password you must fill both fields.";
+            req.session.message = null;
             return res.redirect("/update-profile");
           }
 
@@ -89,6 +100,12 @@ router.post('/', upload.single('image'), async (req, res)=>{
 
             if (!userInUse){ //username not in use
                 try{
+                  const usernameValidation = /^\w{3,}$/;
+                  if (!usernameValidation.test(username)) {
+                      req.session.error = "Username must have at least 3 characters and only contain letters, numbers, or underscores.";
+                      req.session.message = null;
+                      return res.redirect("/update-profile");
+                  }
                     await sequelize.models.user.update({
                         username: username,
                     },
@@ -97,11 +114,13 @@ router.post('/', upload.single('image'), async (req, res)=>{
                     user.username = username;
                 }catch(validationError){
                     req.session.error.push("Invalid username format.");
+                    req.session.message = null;
                     return res.redirect("/update-profile");
                 }
             }
             else{
               req.session.error.push("Username already in use.");
+              req.session.message = null;
               return res.redirect("/update-profile");
             }
             

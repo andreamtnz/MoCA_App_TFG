@@ -23,8 +23,22 @@ router.post('/', async (req, res) => {
     const phone = req.body.phone;
     const username = req.body.user;
     const pass = req.body.password;
+
+    const usernameValidation = /^\w{3,}$/;
+    if (!usernameValidation.test(username)) {
+        req.session.error = "Username must have at least 3 characters and only contain letters, numbers, or underscores.";
+        return res.redirect("/register");
+    }
+
+    const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (!passwordValidation.test(pass)) {
+        req.session.error = "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.";
+        return res.redirect("/register");
+    }
+    
     const user = await sequelize.models.user.findOne({where: {username}});
     if(!user){ // username not in use
+      
       const password = await bcrypt.hash(pass, 10);
       const newUser = await sequelize.models.user.create({username, password, role: 'Patient'}); // añadimos el role porque los que se registran son directamente pacientes
       req.session.user = { username: newUser.username, id: newUser.id };

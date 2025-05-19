@@ -19,7 +19,10 @@ module.exports = (sequelize) => {
         password:{
             allowNull: false,
             type: DataTypes.STRING,
-            unique: false
+            unique: false,
+            validate: {
+                is: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
+            }
         },
         createdAt:{
             allowNull: false,
