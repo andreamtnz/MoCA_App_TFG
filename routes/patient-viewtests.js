@@ -21,7 +21,10 @@ router.get('/', async (req, res) => {
         return res.status(404).send('Patient not found');
     }
 
-    const tests = await sequelize.models.testResult.findAll({ where: { patientId: patient.id } });
+    const tests = await sequelize.models.testResult.findAll({ 
+      where: { patientId: patient.id },
+      order: [['date', 'DESC']]
+   });
 
     
     res.render('patient-tests', { //renderizamos vista tests

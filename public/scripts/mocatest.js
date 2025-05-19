@@ -503,7 +503,7 @@ function showexercise4part12(){
 
 }
 
-var startTime = null;
+//var startTime = null;
 var clickedTimes = [];
 
 function showexercise4part2(){
@@ -519,7 +519,7 @@ function showexercise4part2(){
 
     playAudio("ex4 part2 clickedAs");
     startTime = Date.now();
-    clickedTimes.push(Date.now());
+    //clickedTimes.push(Date.now());
 
     //functionality of ex 4 part 2
     const colors = [
@@ -530,7 +530,8 @@ function showexercise4part2(){
     let colorIndex = 0;
 
     function handleClick(event){
-        var timeClicked = Date.now()/1000;
+        var timeClicked = (Date.now() - startTime)/1000;
+        console.log("Time clicked: "+ timeClicked);
         clickedTimes.push(timeClicked);
         colorIndex = (colorIndex + 1) % colors.length; // Alternar colores
         event.target.style.backgroundColor = colors[colorIndex];
@@ -550,7 +551,7 @@ function showexercise4part3(){
     for (i = 0; i< clickedTimes.length -1; i++){
         clickedA[i] = clickedTimes[i+1] - clickedTimes[0]
     }
-    var text =  clickedA.join(', ') ;
+    var text =  clickedTimes.join(', ') ;
     text = text + '\nOrientative correct answers: 12.303, 17.299, 18.708, 24.854, 27.113, 32.522, 34.029, 35.081, 37.553, 42.449, 43.821' + timetext;
     //downloadtxt("clickedAs", text);
     zip.file("sec4-attention-clickedAs.txt", text);

@@ -29,7 +29,10 @@ router.get('/:id', isDoctor, async (req, res) => {//patient's id is a parameter
 
     
     // Obtener los tests asociados a este paciente
-    const tests = await sequelize.models.testResult.findAll({ where: { patientId: patientId } });
+    const tests = await sequelize.models.testResult.findAll({ 
+      where: { patientId: patientId },
+      order: [['date', 'DESC']]
+     });
 
     if (!patient) {
       return res.redirect("/doctor-viewpatients");      
