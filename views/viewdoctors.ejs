@@ -13,9 +13,9 @@
 
       <% doctors.forEach(doctor => { %>
         <!-- Hacer clic en toda la tarjeta para redirigir a la página del doctor -->
-        <a href="/adminviewdoctor/<%= doctor.id %>" style="text-decoration: none; color: inherit;">
 
         <div class="col-md-6 mb-4">
+          <a href="/adminviewdoctor/<%= doctor.id %>" style="text-decoration: none; color: inherit;">
           <div class="cardMovement mb-4 d-flex flex-row align-items-center" style="padding: 10px; background-color: #f0f0f0; border-radius: 10px;">
             <!-- Mostrar la imagen del doctor (formato pequeño) -->
             
@@ -31,6 +31,7 @@
               <p class="card-text"><strong>License #:</strong> <%= doctor.license_number %></p>
             </div>
           </div>
+          </a>
         </div>
       <% }) %> <!-- Cierra correctamente el bucle forEach -->
     
