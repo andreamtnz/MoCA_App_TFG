@@ -1,44 +1,46 @@
 const express = require('express');
 const router = express.Router();
-const sequelize = require('../sequelize'); // Asegúrate de que la ruta sea correcta
+const sequelize = require('../sequelize');
 
-// Verificación de que el usuario es un doctor
+// Verify that the user is a doctor
 function isDoctor(req, res, next) {
   if (req.session.user && req.session.user.role === 'Doctor') {
-      next(); // Si es doctor, continuar
+      next(); // Continue if it is a doctor
   } else {
-      return res.redirect('/login'); // Si no, redirigir al inicio de sesión
+      return res.redirect('/login'); // redirect to log in if it is not
   }
 }
 
-// get all tests from the specific patient
-router.get('/:id', isDoctor, async (req, res) => {//patient's id is a parameter
+ 
+router.get('/:id', isDoctor, async (req, res) => {
   const patientId = req.params.id;
   try {
-    // Obtener la información del paciente por ID
+    // getting doctor based on user id
     const doctor = await sequelize.models.doctor.findOne({
       where: { userId: req.session.user.id,
       }
     })
 
+    //getting patient based on its id and doctor id
     const patient = await sequelize.models.patient.findOne({
        where: { id: patientId,
           doctorId: doctor.id
        },      
     });
 
+    //no patient found: does not exist or is not assigned to the doctor 
+    if (!patient) {
+      return res.redirect("/doctor-viewpatients");              
+    }
     
-    // Obtener los tests asociados a este paciente
+    // getting tests from the patient
     const tests = await sequelize.models.testResult.findAll({ 
       where: { patientId: patientId },
       order: [['date', 'DESC']]
      });
 
-    if (!patient) {
-      return res.redirect("/doctor-viewpatients");      
-    }
-
-    // Renderizar la vista con la información del user (doctor en este caso) y sus pacientes
+    
+    //rendering view to see specific patient info and tests
     res.render('doctor-viewpatient', {
       user:req.session.user,
       patient,
