@@ -6,12 +6,12 @@ const bcrypt = require('bcrypt');
 
 const upload = require('../utils/upload');
 
-// Verificación de que el usuario es un administrador
+// Verifying that the user is an administrator
 function isAdmin(req, res, next) {
   if (req.session.user && req.session.user.role === 'Administrator') {
-      next(); // Si es administrador, continuar
+      next(); // Continue if it is an Administrator
   } else {
-      return res.redirect('/login'); // Si no, redirigir al inicio de sesión
+      return res.redirect('/login'); // Redirect to log in if it is not
   }
 }
 
