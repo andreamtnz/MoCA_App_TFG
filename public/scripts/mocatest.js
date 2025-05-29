@@ -224,7 +224,7 @@ function showexercise2(){
 
     //downloadCanvas("clock");
     const imageBlob = getImageBlob();
-    zip.file("clock.png", imageBlob)
+    zip.file("ec1-visuospatial-executive-clock.png", imageBlob)
     zip.file("sec1-visuospatial-executive-clock.txt", text);
 
     document.getElementById("exercise1-part3").style.display = "none";
