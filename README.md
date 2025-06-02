@@ -1,1 +1,2 @@
-# 2024_PlantillaTFG
+This is the MoCA Web, a web-based platform that enables users to perform the Montreal Cognitive Assessment (MoCA). This is a cognitive test that doctors use to detect cognitive impairment which is a key sign of neurodegeneration. With this platform we aim to encourage users to test their cognitive abilities with the eng goal of promoting the early diagnosis of neurodegenerative diseases.
+In order to launch the platform Node.js must be installed. When doing so execute npm install to ensure that all the depencies are installed and npm start to finally launch the website. The website could then be accessed at http://localhost:3000/.
